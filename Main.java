@@ -1,9 +1,11 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 public class Main{
     public static void main(String[] args) {
-        
+        CommandProcessor processor = new CommandProcessor();
+        Scanner scanner = new Scanner(System.in);
         String versionNo = "1.0.0";
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -11,6 +13,13 @@ public class Main{
 
         System.out.println("FSM DESIGNER " + versionNo);
         System.out.println("Current date and time: " + currentDateTime);
+        System.out.println("?"); 
+        
+        while (true) {
+            System.out.print("? ");
+            String command = scanner.nextLine();
+            processor.processCommand(command);
+        }
 
     }
 }
