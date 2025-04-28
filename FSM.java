@@ -4,11 +4,21 @@ import java.util.*;
 public class FSM implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    private LogManager logManager = new LogManager(); 
     public Set<String> symbols = new LinkedHashSet<>();
     public Set<String> states = new LinkedHashSet<>();
     public String initialState;
     public Set<String> finalStates = new LinkedHashSet<>();
     public Map<String, Map<String, String>> transitions = new HashMap<>();
+
+    public void handleLogCommand(String command) {
+        logManager.handleLogCommand(command);  
+    }
+
+    
+    public void logCommand(String command) {
+        logManager.logCommand(command);  
+    }
 
     public void clear() {
         symbols.clear();
