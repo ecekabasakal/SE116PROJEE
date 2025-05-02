@@ -1,4 +1,3 @@
-@ -0,0 +1,32 @@
 import java.io.IOException;
 
 public class Exception{
