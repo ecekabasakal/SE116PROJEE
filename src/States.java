@@ -1,73 +1,73 @@
 import java.util.*;
-public class States {
 
-    public class States {
-        private Set<String> states;
-        private String initialState;
-        private Set<String> finalStates;
+public class StatesManager {
+    private States states;
 
-        public States() {
-            states = new LinkedHashSet<>();
-            finalStates = new LinkedHashSet<>();
-            initialState = null;
-        }
+    public StatesManager() {
+        states = new States();
+    }
 
-        public void addState(String stateName) {
-            String state = stateName.toUpperCase();
-            if (states.contains(state)) {
-                System.out.println("Warning: State " + state + " was already declared.");
-            } else {
-                states.add(state);
-                if (initialState == null) {
-                    initialState = state;
+    private boolean isAlphanumeric(String s) {
+        return s.matches("[a-zA-Z0-9]+");
+    }
+
+    public void processCommand(String commandLine) {
+        String[] tokens = commandLine.trim().split("\\s+");
+        if (tokens.length == 0) return;
+
+        String command = tokens[0].toUpperCase();
+
+        switch (command) {
+            case "STATES":
+                if (tokens.length == 1) {
+                    // No arguments: print current state info
+                    states.printStates();
+                } else {
+                    for (int i = 1; i < tokens.length; i++) {
+                        String state = tokens[i];
+                        if (isAlphanumeric(state)) {
+                            states.addState(state);
+                        } else {
+                            System.out.println("Warning: State \"" + state + "\" is not alphanumeric and will be ignored.");
+                        }
+                    }
                 }
-            }
-        }
+                break;
 
-        public void setInitialState(String stateName) {
-            String state = stateName.toUpperCase();
-            if (!states.contains(state)) {
-                System.out.println("Warning: Initial state " + state + " was not previously declared. Adding it.");
-                states.add(state);
-            }
-            initialState = state;
-        }
+            case "INITIAL-STATE":
+                if (tokens.length < 2) {
+                    System.out.println("Warning: INITIAL-STATE command requires a state name.");
+                } else {
+                    String initialState = tokens[1];
+                    if (isAlphanumeric(initialState)) {
+                        states.setInitialState(initialState);
+                    } else {
+                        System.out.println("Warning: Initial state \"" + initialState + "\" is not alphanumeric.");
+                    }
+                }
+                break;
 
-        public void addFinalState(String stateName) {
-            String state = stateName.toUpperCase();
-            if (!states.contains(state)) {
-                System.out.println("Warning: Final state " + state + " was not previously declared. Adding it.");
-                states.add(state);
-            }
-            if (finalStates.contains(state)) {
-                System.out.println("Warning: Final state " + state + " was already declared as a final state.");
-            }
-            finalStates.add(state);
-        }
+            case "FINAL-STATES":
+                if (tokens.length < 2) {
+                    System.out.println("Warning: FINAL-STATES command requires at least one state.");
+                } else {
+                    for (int i = 1; i < tokens.length; i++) {
+                        String finalState = tokens[i];
+                        if (isAlphanumeric(finalState)) {
+                            states.addFinalState(finalState);
+                        } else {
+                            System.out.println("Warning: Final state \"" + finalState + "\" is not alphanumeric and will be ignored.");
+                        }
+                    }
+                }
+                break;
 
-        public Set<String> getStates() {
-            return states;
-        }
-
-        public String getInitialState() {
-            return initialState;
-        }
-
-        public Set<String> getFinalStates() {
-            return finalStates;
-        }
-
-        public void clear() {
-            states.clear();
-            finalStates.clear();
-            initialState = null;
-        }
-
-        public void printStates() {
-            System.out.println("States: " + states);
-            System.out.println("Initial State: " + (initialState != null ? initialState : "None"));
-            System.out.println("Final States: " + finalStates);
+            default:
+                System.out.println("Warning: Unknown command \"" + command + "\".");
         }
     }
 
+    public States getStates() {
+        return states;
+    }
 }
