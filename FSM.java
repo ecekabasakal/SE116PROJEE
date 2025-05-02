@@ -15,11 +15,10 @@ public class FSM implements Serializable {
         logManager.handleLogCommand(command);  
     }
 
-    
     public void logCommand(String command) {
         logManager.logCommand(command);  
     }
-
+    
     public void clear() {
         symbols.clear();
         states.clear();
