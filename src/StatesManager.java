@@ -11,60 +11,62 @@ public class StatesManager {
         return s.matches("[a-zA-Z0-9]+");
     }
 
-    public void processCommand(String commandLine) {
-        String[] tokens = commandLine.trim().split("\\s+");
-        if (tokens.length == 0) return;
+    public void processCommand(String commandLine) throws NonAlphanumericStateException, DuplicateStateWarningException, EmptyStateListException, InvalidInitialStateException, UndeclaredInitialStateWarningException, InvalidFinalStateException, UndeclaredFinalStateWarningException, DuplicateFinalStateWarningException {
+        try {
+            String[] tokens = commandLine.trim().split("\\s+");
+            if (tokens.length == 0) return;
 
-        String command = tokens[0].toUpperCase();
+            String command = tokens[0].toUpperCase();
 
-        switch (command) {
-            case "STATES":
-                if (tokens.length == 1) {
-                    // No arguments: print current state info
-                    states.printStates();
-                } else {
-                    for (int i = 1; i < tokens.length; i++) {
-                        String state = tokens[i];
-                        if (isAlphanumeric(state)) {
-                            states.addState(state);
-                        } else {
-                            System.out.println("Warning: State \"" + state + "\" is not alphanumeric and will be ignored.");
-                        }
-                    }
-                }
-                break;
-
-            case "INITIAL-STATE":
-                if (tokens.length < 2) {
-                    System.out.println("Warning: INITIAL-STATE command requires a state name.");
-                } else {
-                    String initialState = tokens[1];
-                    if (isAlphanumeric(initialState)) {
-                        states.setInitialState(initialState);
+            switch (command) {
+                case "STATES":
+                    if (tokens.length == 1) {
+                        states.printStates();
                     } else {
-                        System.out.println("Warning: Initial state \"" + initialState + "\" is not alphanumeric.");
-                    }
-                }
-                break;
-
-            case "FINAL-STATES":
-                if (tokens.length < 2) {
-                    System.out.println("Warning: FINAL-STATES command requires at least one state.");
-                } else {
-                    for (int i = 1; i < tokens.length; i++) {
-                        String finalState = tokens[i];
-                        if (isAlphanumeric(finalState)) {
-                            states.addFinalState(finalState);
-                        } else {
-                            System.out.println("Warning: Final state \"" + finalState + "\" is not alphanumeric and will be ignored.");
+                        for (int i = 1; i < tokens.length; i++) {
+                            String state = tokens[i];
+                            if (isAlphanumeric(state)) {
+                                states.addState(state);
+                            } else {
+                                throw new NonAlphanumericStateException("Warning: State \"" + state + "\" is not alphanumeric and will be ignored.");
+                            }
                         }
                     }
-                }
-                break;
+                    break;
 
-            default:
-                System.out.println("Warning: Unknown command \"" + command + "\".");
-        }
+                case "INITIAL-STATE":
+                    if (tokens.length < 2) {
+                        throw new InvalidInitialStateException("Warning: INITIAL-STATE command requires a state name.");
+                    } else {
+                        String initialState = tokens[1];
+                        if (isAlphanumeric(initialState)) {
+                            states.setInitialState(initialState);
+                        } else {
+                            throw new InvalidInitialStateException("Warning: Initial state \"" + initialState + "\" is not alphanumeric.");
+                        }
+                    }
+                    break;
+
+                case "FINAL-STATES":
+                    if (tokens.length < 2) {
+                        throw new InvalidFinalStateException("Warning: FINAL-STATES command requires at least one state.");
+                    } else {
+                        for (int i = 1; i < tokens.length; i++) {
+                            String finalState = tokens[i];
+                            if (isAlphanumeric(finalState)) {
+                                states.addFinalState(finalState);
+                            } else {
+                                throw new InvalidFinalStateException("Warning: Final state \"" + finalState + "\" is not alphanumeric and will be ignored.");
+                            }
+                        }
+                    }
+                    break;
+
+                default:
+                    System.out.println("Warning: Unknown command \"" + command + "\".");
+            }
+        } catch (NonAlphanumericStateException | DuplicateStateWarningException | EmptyStateListException | InvalidInitialStateException | UndeclaredInitialStateWarningException | InvalidFinalStateException | UndeclaredFinalStateWarningException | DuplicateFinalStateWarningException e) {
+            throw e;        }
     }
 
     public States getStates() {
