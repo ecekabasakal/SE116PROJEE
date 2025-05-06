@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*; 
 import java.lang.*;
     
-    public class InvalidVersionException extends RuntimeException {
+    FSMMAINNclass InvalidVersionException extends RuntimeException {
         public InvalidVersionException() {
             super("WARNİNG : Invalid or missing GitHub version number.");
         }
@@ -337,7 +337,22 @@ import java.lang.*;
             super(message);
         }
     }
-
+    public class InvalidCommandSyntaxException extends IOException{
+        public InvalidCommandSyntaxException(){
+            super("WARNİNG : Error executing from syntax ");
+        }
+        public InvalidCommandSyntaxException(String message){
+            super(message);
+        }
+    }
+    public class LoadCommandExecution extends IOException{
+        public LoadCommandExecution(){
+            super("WARNİNG : Error executing from command");
+        }
+        public LoadCommandExecution(String message){
+            super(message);
+        }
+    }
 class StatesManager {
     private States states;
 
@@ -1232,11 +1247,49 @@ class LogManager {
         }
     }
 }
-public class FSM {
+// Helper method to process commands
+private static void processCommand(String command, Print print, Load load, Clear clear, Compile compile, CommandProcessor processor) throws Exception {
+    String[] tokens = command.split("\\s+");
+    String mainCommand = tokens[0].toUpperCase();
+    String[] argsRest = java.util.Arrays.copyOfRange(tokens, 1, tokens.length);
+
+    switch (mainCommand) {
+        case "PRINT":
+            print.handlePrint(argsRest);
+            break;
+        case "LOAD":
+            if (argsRest.length == 0) {
+                throw new InvalidCommandSyntaxException("Missing filename for LOAD command");
+            }
+            load.handleLoad(argsRest[0]);
+            break;
+        case "CLEAR":
+            clear.handleClear();
+            break;
+        case "COMPILE":
+            if (argsRest.length == 0) {
+                throw new InvalidCommandSyntaxException("Missing filename for COMPILE command");
+            }
+            compile.handleCompile(argsRest[0]);
+            break;
+        default:
+            processor.processCommand(command);
+    }
+}
+private static boolean isValidVersion(String version) {
+    return version != null && version.matches("\\d+\\.\\d+\\.\\d+");
+}
+private static boolean isValidFilename(String filename) {
+    return filename.matches("[a-zA-Z0-9._-][a-zA-Z0-9._-]*");
+}
+private static boolean isValidCommand(String command) {
+    return command != null && !command.isEmpty() && command.matches("[a-zA-Z0-9\\s-]*");
+}
+public class FSMMAINN{
     public static void main(String[] args) {
         try {
             // Initialize FSM and components
-            FSM fsm = new FSM();
+            FSMMAIN fsm = new FSMMAIN();
             Print print = new Print(fsm);
             Clear clear = new Clear(fsm);
             Load load = new Load(fsm);
@@ -1362,51 +1415,6 @@ public class FSM {
             System.exit(1);
         }
     }
-
-    // Helper method to process commands
-    private static void processCommand(String command, Print print, Load load, Clear clear, Compile compile, CommandProcessor processor) throws Exception {
-        String[] tokens = command.split("\\s+");
-        String mainCommand = tokens[0].toUpperCase();
-        String[] argsRest = java.util.Arrays.copyOfRange(tokens, 1, tokens.length);
-
-        switch (mainCommand) {
-            case "PRINT":
-                print.handlePrint(argsRest);
-                break;
-            case "LOAD":
-                if (argsRest.length == 0) {
-                    throw new InvalidCommandSyntaxException("Missing filename for LOAD command");
-                }
-                load.handleLoad(argsRest[0]);
-                break;
-            case "CLEAR":
-                clear.handleClear();
-                break;
-            case "COMPILE":
-                if (argsRest.length == 0) {
-                    throw new InvalidCommandSyntaxException("Missing filename for COMPILE command");
-                }
-                compile.handleCompile(argsRest[0]);
-                break;
-            default:
-                processor.processCommand(command);
-        }
-    }
-
-    // Helper method to validate version number
-    private static boolean isValidVersion(String version) {
-        // Simulate GitHub version validation (e.g., semantic versioning)
-        return version != null && version.matches("\\d+\\.\\d+\\.\\d+");
-    }
-
-    // Helper method to validate filename
-    private static boolean isValidFilename(String filename) {
-        return filename.matches("[a-zA-Z0-9._-][a-zA-Z0-9._-]*");
-    }
-
-    // Helper method to validate command syntax
-    private static boolean isValidCommand(String command) {
-        return command != null && !command.isEmpty() && command.matches("[a-zA-Z0-9\\s-]*");
-    }
 }
+
 
