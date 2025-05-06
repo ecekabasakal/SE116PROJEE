@@ -2,6 +2,9 @@
 import java.util.*;
 import java.io.*; 
 import java.lang.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
     
     public class InvalidVersionException extends RuntimeException {
         public InvalidVersionException() {
@@ -423,6 +426,16 @@ class States {
             throw e;        }
     }
 
+    private void addFinalState(String finalState) {
+
+        throw new UnsupportedOperationException("Unimplemented method 'addFinalState'");
+    }
+
+    private void setInitialState(String initialState) {
+      
+        throw new UnsupportedOperationException("Unimplemented method 'setInitialState'");
+    }
+
     private void printStates() {
         throw new UnsupportedOperationException("Unimplemented method 'printStates'");
     }
@@ -442,13 +455,12 @@ class CommandProcessor {
             throw new MissingSemicolonException();
         }
 
-        // Extract command before semicolon and trim
         int semicolonIndex = command.indexOf(';');
         String processedCommand = command.substring(0, semicolonIndex).trim();
 
-        // Ignore comments (lines starting with semicolon)
+    
         if (processedCommand.isEmpty()) {
-            return; // Comment line, no processing needed
+            return;
         }
         if (command.equalsIgnoreCase("EXIT")) {
             System.out.println("TERMINATED BY USER");
@@ -630,7 +642,7 @@ public void clear() {
         }
 
         // StatesManager varsa onu temizle
-        if (statesManager != null && statesManager.getStates() != null) {
+        if (States != null && states.getStates() != null) {
             statesManager.getStates().clear();
         }
 
@@ -844,12 +856,12 @@ class FSM implements Serializable {
         }
     }
 }
-class TransitionManager {
+class Transition {
     private Set<String> validSymbols;
     private Set<String> validStates;
     private Map<String, Map<String, Transition>> transitionTable;
 
-    public TransitionManager(Set<String> validSymbols, Set<String> validStates) {
+    public Transition(Set<String> validSymbols, Set<String> validStates) {
         this.validSymbols = new HashSet<>();
         for (String symbol : validSymbols)
             this.validSymbols.add(symbol.toUpperCase());
@@ -861,42 +873,45 @@ class TransitionManager {
         this.transitionTable = new HashMap<>();
     }
 
-    public void processTransitionsCommand(String command) throws UndeclaredSymbolInTransitionException, UndeclaredStateInTransitionException, DuplicateTransitionOverrideException {
-        try {
-            String[] parts = command.substring("TRANSITIONS".length()).trim().split(",");
+   //Bakılcak
+    public Transition(String symbol, String currentState, String nextState) {
 
-            for (String part : parts) {
-                String[] tokens = part.trim().split("\\s+");
-                if (tokens.length != 3) {
-                    System.out.println("Invalid transition format: " + part.trim());
-                    continue;
-                }
-
-                String symbol = tokens[0].toUpperCase();
-                String currentState = tokens[1].toUpperCase();
-                String nextState = tokens[2].toUpperCase();
-
-                if (!validSymbols.contains(symbol)) {
-                    throw new UndeclaredSymbolInTransitionException("Error: invalid symbol $" + symbol + "$");
-                }
-                if (!validStates.contains(currentState)) {
-                    throw new UndeclaredStateInTransitionException("Error: invalid state $" + currentState + "$");
-                }
-                if (!validStates.contains(nextState)) {
-                    throw new UndeclaredStateInTransitionException("Error: invalid state $" + nextState + "$");
-                }
-                if (transitionTable.containsKey(currentState) && transitionTable.get(currentState).containsKey(symbol)) {
-                    throw new DuplicateTransitionOverrideException("Warning: transition already exists for <" + symbol + ", " + currentState + ">");
-                }
-
-                transitionTable.putIfAbsent(currentState, new HashMap<>());
-                transitionTable.get(currentState).put(symbol, new Transition(symbol, currentState, nextState));
-            }
-        } catch (UndeclaredSymbolInTransitionException | UndeclaredStateInTransitionException | DuplicateTransitionOverrideException e) {
-            throw e;         }
     }
 
-    public Transition getTransition(String currentState, String symbol) {
+    public void processTransitionsCommand(String command) throws UndeclaredSymbolInTransitionException, UndeclaredStateInTransitionException, DuplicateTransitionOverrideException {
+
+            String[] parts = command.substring("TRANSITIONS".length()).trim().split(",");
+
+           for (String part : parts) {
+            String[] tokens = part.trim().split("\s+");
+            if (tokens.length != 3) {
+                System.out.println("Invalid transition format: " + part.trim());
+                continue;
+            }
+
+            String symbol = tokens[0].toUpperCase();
+            String currentState = tokens[1].toUpperCase();
+            String nextState = tokens[2].toUpperCase();
+
+            if (!validSymbols.contains(symbol)) {
+                throw new UndeclaredSymbolInTransitionException("Error: invalid symbol $" + symbol + "$");
+            }
+            if (!validStates.contains(currentState)) {
+                throw new UndeclaredStateInTransitionException("Error: invalid state $" + currentState + "$");
+            }
+            if (!validStates.contains(nextState)) {
+                throw new UndeclaredStateInTransitionException("Error: invalid state $" + nextState + "$");
+            }
+            if (transitionTable.containsKey(currentState) && transitionTable.get(currentState).containsKey(symbol)) {
+                throw new DuplicateTransitionOverrideException("Warning: transition already exists for <" + symbol + ", " + currentState + ">");
+            }
+
+            transitionTable.putIfAbsent(currentState, new HashMap<>());
+            transitionTable.get(currentState).put(symbol, new Transition(symbol, currentState, nextState));
+        }
+    }
+
+   public Transition getTransition(String currentState, String symbol) {
         Map<String, Transition> row = transitionTable.get(currentState.toUpperCase());
         if (row != null) {
             return row.get(symbol.toUpperCase());
@@ -917,6 +932,12 @@ class TransitionManager {
             }
         }
         System.out.println(output.toString());
+    }
+
+    public void clear() {
+        transitionTable.clear();
+        validSymbols.clear();
+        validStates.clear();
     }
 }
 
