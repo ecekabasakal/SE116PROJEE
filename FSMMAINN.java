@@ -358,10 +358,12 @@ import java.time.format.DateTimeParseException;
         }
     }
 class States {
-    private States states;
-
+    private Set<String> states = new HashSet<>();
+    private String initialState;
+    private Set<String> finalStates = new HashSet<>();
+   
     public States() {
-        states = new States();
+        
     }
 
     private boolean isAlphanumeric(String s) {
@@ -369,92 +371,114 @@ class States {
     }
 
     public void processCommand(String commandLine) throws NonAlphanumericStateException, DuplicateStateWarningException, EmptyStateListException, InvalidInitialStateException, UndeclaredInitialStateWarningException, InvalidFinalStateException, UndeclaredFinalStateWarningException, DuplicateFinalStateWarningException {
-        try {
-            String[] tokens = commandLine.trim().split("\\s+");
-            if (tokens.length == 0) return;
+        String[] tokens = commandLine.trim().split("\\s+");
+        if (tokens.length == 0) return;
 
-            String command = tokens[0].toUpperCase();
+        String command = tokens[0].toUpperCase();
 
-            switch (command) {
-                case "STATES":
-                    if (tokens.length == 1) {
-                        states.printStates();
-                    } else {
-                        for (int i = 1; i < tokens.length; i++) {
-                            String state = tokens[i];
-                            if (isAlphanumeric(state)) {
-                                states.addState(state);
-                            } else {
-                                throw new NonAlphanumericStateException("Warning: State \"" + state + "\" is not alphanumeric and will be ignored.");
-                            }
+           switch (command) {
+            case "STATES":
+                if (tokens.length == 1) {
+                    printStates();
+                } else {
+                    for (int i = 1; i < tokens.length; i++) {
+                        String state = tokens[i];
+                        if (isAlphanumeric(state)) {
+                            addState(state);
+                        } else {
+                            throw new NonAlphanumericStateException("Warning: State \"" + state + "\" is not alphanumeric and will be ignored.");
                         }
                     }
-                    break;
+                }
+                break;
 
                 case "INITIAL-STATE":
-                    if (tokens.length < 2) {
-                        throw new InvalidInitialStateException("Warning: INITIAL-STATE command requires a state name.");
+                if (tokens.length < 2) {
+                    throw new InvalidInitialStateException("Warning: INITIAL-STATE command requires a state name.");
+                } else {
+                    String initialState = tokens[1];
+                    if (isAlphanumeric(initialState)) {
+                        setInitialState(initialState);
                     } else {
-                        String initialState = tokens[1];
-                        if (isAlphanumeric(initialState)) {
-                            states.setInitialState(initialState);
-                        } else {
-                            throw new InvalidInitialStateException("Warning: Initial state \"" + initialState + "\" is not alphanumeric.");
-                        }
+                        throw new InvalidInitialStateException("Warning: Initial state \"" + initialState + "\" is not alphanumeric.");
                     }
-                    break;
+                }
+                break;
 
                 case "FINAL-STATES":
-                    if (tokens.length < 2) {
-                        throw new InvalidFinalStateException("Warning: FINAL-STATES command requires at least one state.");
-                    } else {
-                        for (int i = 1; i < tokens.length; i++) {
-                            String finalState = tokens[i];
-                            if (isAlphanumeric(finalState)) {
-                                states.addFinalState(finalState);
-                            } else {
-                                throw new InvalidFinalStateException("Warning: Final state \"" + finalState + "\" is not alphanumeric and will be ignored.");
-                            }
+                if (tokens.length < 2) {
+                    throw new InvalidFinalStateException("Warning: FINAL-STATES command requires at least one state.");
+                } else {
+                    for (int i = 1; i < tokens.length; i++) {
+                        String finalState = tokens[i];
+                        if (isAlphanumeric(finalState)) {
+                            addFinalState(finalState);
+                        } else {
+                            throw new InvalidFinalStateException("Warning: Final state \"" + finalState + "\" is not alphanumeric and will be ignored.");
                         }
                     }
-                    break;
+                }
+                break;
 
-                default:
-                    System.out.println("Warning: Unknown command \"" + command + "\".");
-            }
-        } catch (NonAlphanumericStateException | DuplicateStateWarningException | EmptyStateListException | InvalidInitialStateException | UndeclaredInitialStateWarningException | InvalidFinalStateException | UndeclaredFinalStateWarningException | DuplicateFinalStateWarningException e) {
-            throw e;        }
+            default:
+                System.out.println("Warning: Unknown command \"" + command + "\".");
+        }
     }
 
     private void addFinalState(String finalState) {
-
-        throw new UnsupportedOperationException("Unimplemented method 'addFinalState'");
+        if (!states.contains(finalState)) {
+            throw new UndeclaredFinalStateWarningException("Final state not declared: " + finalState);
+        }
+        if (finalStates.contains(finalState)) {
+            throw new DuplicateFinalStateWarningException("Final state already declared: " + finalState);
+        }
+        finalStates.add(finalState);
     }
 
     private void setInitialState(String initialState) {
-      
-        throw new UnsupportedOperationException("Unimplemented method 'setInitialState'");
+        if (!states.contains(initialState)) {
+            throw new UndeclaredInitialStateWarningException("Initial state not declared: " + initialState);
+        }
+        this.initialState = initialState;
     }
 
     private void printStates() {
-        throw new UnsupportedOperationException("Unimplemented method 'printStates'");
+        if (states.isEmpty()) {
+            throw new EmptyStateListException();
+        }
+        System.out.println("States: " + states);
     }
 
     private void addState(String state) {
-        throw new UnsupportedOperationException("Unimplemented method 'addState'");
+        if (states.contains(state)) {
+            throw new DuplicateStateWarningException("State already declared: " + state);
+        }
+        states.add(state);
     }
 
-    public States getStates() {
+    public Set<String> getStates() {
         return states;
     }
 
     public String getInitialState() {
-        throw new UnsupportedOperationException("Unimplemented method 'getInitialState'");
+        return initialState;
     }
 
-    public String getSymbols() {
-        throw new UnsupportedOperationException("Unimplemented method 'getSymbols'");
+    public Set<String> getFinalStates() {
+        return finalStates;
     }
+
+    // New method to check if a state is final
+    public boolean isFinalState(String state) {
+        return finalStates.contains(state);
+    }
+
+    public void clear() {
+        states.clear();
+        initialState = null;
+        finalStates.clear();
+    }
+
 }
 class CommandProcessor {
     public void processCommand(String command) throws MissingSemicolonException  {
@@ -648,8 +672,8 @@ class SymbolManager {
         } catch (NonAlphanumericSymbolException | DuplicateSymbolWarningException | EmptySymbolListException e) {
             throw e; 
         }
-    }
-
+    
+   //bakılacak
     public void clear() {
         // Semboller
         if (symbols != null) {
@@ -657,18 +681,19 @@ class SymbolManager {
         }
 
         // StatesManager varsa onu temizle
-        if (States != null && states.getStates() != null) {
-            States.getStates().clear();
+        if (states != null) {
+            States.clear();
         }
 
         // TransitionManager varsa onu da temizle
-        if (Transition != null) {
+        if (transition != null) {
             Transition.clear();
         }
 
         System.out.println("FSM cleared.");
-   
-}
+        
+    }
+    }
 }
 
 class FSM implements Serializable {
@@ -882,9 +907,9 @@ class Transition {
             this.validSymbols.add(symbol.toUpperCase());
 
         this.validStates = new HashSet<>();
-        for (String state : validStates)
+        for (String state : validStates) { 
             this.validStates.add(state.toUpperCase());
-
+        }
         this.transitionTable = new HashMap<>();
     }
 
@@ -963,10 +988,12 @@ class Transition {
 class FSMExecutor {
     private States states;
     private TransitionManager transitions;
+    private Set<String> symbols;
 
-    public FSMExecutor(States states, TransitionManager transitions) {
+    public FSMExecutor(States states, TransitionManager transitions, Set<String> symbols) {
         this.states = states;
         this.transitions = transitions;
+        this.symbols = symbols;
     }
 
     public void execute(String input) {
@@ -988,7 +1015,7 @@ class FSMExecutor {
         for (char ch : input.toCharArray()) {
             String symbol = String.valueOf(ch).toUpperCase();
 
-            if (!states.getSymbols().contains(symbol)) {
+            if (!symbols.contains(symbol)) {
                 System.out.println("Error: Invalid symbol " + symbol);
                 return;
             }
