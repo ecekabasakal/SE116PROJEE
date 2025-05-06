@@ -447,6 +447,14 @@ class States {
     public States getStates() {
         return states;
     }
+
+    public String getInitialState() {
+        throw new UnsupportedOperationException("Unimplemented method 'getInitialState'");
+    }
+
+    public String getSymbols() {
+        throw new UnsupportedOperationException("Unimplemented method 'getSymbols'");
+    }
 }
 class CommandProcessor {
     public void processCommand(String command) throws MissingSemicolonException  {
@@ -605,7 +613,7 @@ class SymbolManager {
 
     public void handleSymbolsCommand(String command) throws NonAlphanumericSymbolException, DuplicateSymbolWarningException, EmptySymbolListException {
         try {
-            String[] symbolArray = command.split("\\s+");
+            String[] symbolArray = command.split("\s+");
 
             if (symbolArray.length == 0) {
                 if (symbols.isEmpty()) {
@@ -635,7 +643,6 @@ class SymbolManager {
     }
 }
 public void clear() {
-    try {
         // Semboller
         if (symbols != null) {
             symbols.clear();
@@ -643,18 +650,16 @@ public void clear() {
 
         // StatesManager varsa onu temizle
         if (States != null && states.getStates() != null) {
-            statesManager.getStates().clear();
+            States.getStates().clear();
         }
 
         // TransitionManager varsa onu da temizle
-        if (transitionManager != null) {
-            transitionManager.clear();
+        if (Transition != null) {
+            Transition.clear();
         }
 
         System.out.println("FSM cleared.");
-    } catch (Exception e) {
-        System.out.println("Error during FSM clearing: " + e.getMessage());
-    }
+   
 }
 class FSM implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -938,6 +943,10 @@ class Transition {
         transitionTable.clear();
         validSymbols.clear();
         validStates.clear();
+    }
+
+    public String getNextState() {
+        throw new UnsupportedOperationException("Unimplemented method 'getNextState'");
     }
 }
 
