@@ -610,6 +610,14 @@ class Print {
 
 class SymbolManager {
     private Set<String> symbols = new HashSet<>();
+    private States states; 
+    private TransitionManager transitionManager; 
+
+
+    public SymbolManager(States states, TransitionManager transitionManager) {
+        this.states = states;
+        this.transitionManager = transitionManager;
+    }
 
     public void handleSymbolsCommand(String command) throws NonAlphanumericSymbolException, DuplicateSymbolWarningException, EmptySymbolListException {
         try {
@@ -641,8 +649,8 @@ class SymbolManager {
             throw e; 
         }
     }
-}
-public void clear() {
+
+    public void clear() {
         // Semboller
         if (symbols != null) {
             symbols.clear();
@@ -661,6 +669,8 @@ public void clear() {
         System.out.println("FSM cleared.");
    
 }
+}
+
 class FSM implements Serializable {
     private static final long serialVersionUID = 1L;
 
