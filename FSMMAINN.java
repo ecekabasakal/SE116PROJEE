@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*; 
 import java.lang.*;
     
-    FSMMAINNclass InvalidVersionException extends RuntimeException {
+    public class InvalidVersionException extends RuntimeException {
         public InvalidVersionException() {
             super("WARNİNG : Invalid or missing GitHub version number.");
         }
@@ -353,10 +353,10 @@ import java.lang.*;
             super(message);
         }
     }
-class StatesManager {
+class States {
     private States states;
 
-    public StatesManager() {
+    public States() {
         states = new States();
     }
 
@@ -420,6 +420,14 @@ class StatesManager {
             }
         } catch (NonAlphanumericStateException | DuplicateStateWarningException | EmptyStateListException | InvalidInitialStateException | UndeclaredInitialStateWarningException | InvalidFinalStateException | UndeclaredFinalStateWarningException | DuplicateFinalStateWarningException e) {
             throw e;        }
+    }
+
+    private void printStates() {
+        throw new UnsupportedOperationException("Unimplemented method 'printStates'");
+    }
+
+    private void addState(String state) {
+        throw new UnsupportedOperationException("Unimplemented method 'addState'");
     }
 
     public States getStates() {
