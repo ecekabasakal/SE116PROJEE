@@ -1,3 +1,4 @@
+
 import java.util.*;
 import java.io.*; 
 import java.lang.*;
@@ -1255,7 +1256,6 @@ class LogManager {
         }
     }
 }
-// Helper method to process commands
 private static void processCommand(String command, Print print, Load load, Clear clear, Compile compile, CommandProcessor processor) throws Exception {
     String[] tokens = command.split("\\s+");
     String mainCommand = tokens[0].toUpperCase();
@@ -1296,21 +1296,16 @@ private static boolean isValidCommand(String command) {
 public class FSMMAINN{
     public static void main(String[] args) {
         try {
-            // Initialize FSM and components
             FSMMAIN fsm = new FSMMAIN();
             Print print = new Print(fsm);
             Clear clear = new Clear(fsm);
             Load load = new Load(fsm);
             Compile compile = new Compile(fsm);
             CommandProcessor processor = new CommandProcessor();
-
-            // Validate version number (simulated GitHub fetch)
-            String versionNo = "1.0.0"; // Hardcoded for now
+            String versionNo = "1.0.0"; 
             if (!isValidVersion(versionNo)) {
                 throw new InvalidVersionException("Invalid version number: " + versionNo);
             }
-
-            // Format startup message
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String currentDateTime;
             try {
@@ -1318,12 +1313,8 @@ public class FSMMAINN{
             } catch (DateTimeParseException | IllegalArgumentException e) {
                 throw new StartupFormatException("Failed to format date and time: " + e.getMessage());
             }
-
-            // Print startup message (FR1)
             System.out.println("FSM DESIGNER " + versionNo);
             System.out.println("Current date and time: " + currentDateTime);
-
-            // Handle command-line file input (FR15)
             if (args.length > 0) {
                 String filePath = args[0];
                 if (filePath == null || filePath.trim().isEmpty()) {
@@ -1345,20 +1336,14 @@ public class FSMMAINN{
                         if (line.startsWith("?")) {
                             line = line.substring(1).trim();
                         }
-
-                        // Check for semicolon
                         int semicolonIndex = line.indexOf(';');
                         if (semicolonIndex == -1) {
                             throw new MissingSemicolonException("Command missing semicolon on line " + lineNumber + ": " + line);
                         }
                         line = line.substring(0, semicolonIndex).trim();
-
-                        // Validate command syntax
                         if (!isValidCommand(line)) {
                             throw new InvalidCommandSyntaxException("Invalid command syntax on line " + lineNumber + ": " + line);
                         }
-
-                        // Process command
                         try {
                             processCommand(line, print, load, clear, compile, processor);
                         } catch (Exception e) {
@@ -1371,8 +1356,6 @@ public class FSMMAINN{
                     throw new CommandLineFileAccessException("Cannot access file: " + filePath + " - " + e.getMessage());
                 }
             }
-
-            // Interactive command loop
             try (Scanner scanner = new Scanner(System.in)) {
                 while (true) {
                     System.out.print("? ");
@@ -1383,20 +1366,14 @@ public class FSMMAINN{
                     if (command.startsWith("?")) {
                         command = command.substring(1).trim();
                     }
-
-                    // Check for semicolon
                     int semicolonIndex = command.indexOf(';');
                     if (semicolonIndex == -1) {
                         throw new MissingSemicolonException("Command missing semicolon: " + command);
                     }
                     command = command.substring(0, semicolonIndex).trim();
-
-                    // Validate command syntax
                     if (!isValidCommand(command)) {
                         throw new InvalidCommandSyntaxException("Invalid command syntax: " + command);
                     }
-
-                    // Process command
                     processCommand(command, print, load, clear, compile, processor);
                 }
             }
