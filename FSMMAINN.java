@@ -7,8 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 
-
-     class InvalidVersionException extends RuntimeException {
+    class InvalidVersionException extends RuntimeException {
         public InvalidVersionException() {
             super("WARNİNG : Invalid or missing GitHub version number.");
         }
@@ -18,7 +17,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-     class StartupFormatException extends RuntimeException {
+    class StartupFormatException extends RuntimeException {
         public StartupFormatException() {
             super("WARNİNG : Failed to format startup message.");
         }
@@ -27,6 +26,7 @@ import java.time.format.DateTimeParseException;
             super(message);
         }
     }
+
     class MissingSemicolonException extends RuntimeException {
         public MissingSemicolonException() {
             super("WARNİNG : Command is missing a semicolon terminator.");
@@ -35,7 +35,9 @@ import java.time.format.DateTimeParseException;
         public MissingSemicolonException(String message) {
             super(message);
         }
-    }public class LogFileCreationException extends IOException {
+    }
+
+    class LogFileCreationException extends IOException {
         public LogFileCreationException() {
             super("WARNİNG : Failed to create log file.");
         }
@@ -45,7 +47,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    public class LogFileWriteException extends IOException {
+    class LogFileWriteException extends IOException {
         public LogFileWriteException() {
             super("WARNİNG : Failed to write to log file.");
         }
@@ -55,7 +57,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    public class LogAlreadyActiveException extends RuntimeException {
+    class LogAlreadyActiveException extends RuntimeException {
         public LogAlreadyActiveException() {
             super("WARNİNG : Logging is already active for another file.");
         }
@@ -64,7 +66,8 @@ import java.time.format.DateTimeParseException;
             super(message);
         }
     }
-    public class NonAlphanumericSymbolException extends RuntimeException {
+
+    class NonAlphanumericSymbolException extends RuntimeException {
         public NonAlphanumericSymbolException() {
             super("WARNİNG : Symbol must be alphanumeric.");
         }
@@ -74,7 +77,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    public class DuplicateSymbolWarningException extends RuntimeException {
+    class DuplicateSymbolWarningException extends RuntimeException {
         public DuplicateSymbolWarningException() {
             super("WARNİNG : Symbol is already declared.");
         }
@@ -84,7 +87,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    public class EmptySymbolListException extends RuntimeException {
+    class EmptySymbolListException extends RuntimeException {
         public EmptySymbolListException() {
             super("WARNİNG : No symbols have been declared yet.");
         }
@@ -93,7 +96,8 @@ import java.time.format.DateTimeParseException;
             super(message);
         }
     }
-    public class NonAlphanumericStateException extends RuntimeException {
+
+    class NonAlphanumericStateException extends RuntimeException {
         public NonAlphanumericStateException() {
             super("WARNİNG : State must be alphanumeric.");
         }
@@ -103,7 +107,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    public class DuplicateStateWarningException extends RuntimeException {
+    class DuplicateStateWarningException extends RuntimeException {
         public DuplicateStateWarningException() {
             super("WARNİNG : State is already declared.");
         }
@@ -113,7 +117,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    public class EmptyStateListException extends RuntimeException {
+    class EmptyStateListException extends RuntimeException {
         public EmptyStateListException() {
             super("WARNİNG : No states have been declared yet.");
         }
@@ -122,7 +126,8 @@ import java.time.format.DateTimeParseException;
             super(message);
         }
     }
-     class InvalidInitialStateException extends RuntimeException {
+
+    class InvalidInitialStateException extends RuntimeException {
         public InvalidInitialStateException() {
             super("WARNİNG : Invalid initial state specified.");
         }
@@ -132,7 +137,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    public class UndeclaredInitialStateWarningException extends RuntimeException {
+    class UndeclaredInitialStateWarningException extends RuntimeException {
         public UndeclaredInitialStateWarningException() {
             super("WARNİNG : Initial state was not previously declared.");
         }
@@ -141,7 +146,8 @@ import java.time.format.DateTimeParseException;
             super(message);
         }
     }
-     class InvalidFinalStateException extends RuntimeException {
+
+    class InvalidFinalStateException extends RuntimeException {
         public InvalidFinalStateException() {
             super("WARNİNG : Invalid final state specified.");
         }
@@ -151,7 +157,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    public class UndeclaredFinalStateWarningException extends RuntimeException {
+    class UndeclaredFinalStateWarningException extends RuntimeException {
         public UndeclaredFinalStateWarningException() {
             super("WARNİNG : Final state was not previously declared.");
         }
@@ -161,7 +167,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    public class DuplicateFinalStateWarningException extends RuntimeException {
+    class DuplicateFinalStateWarningException extends RuntimeException {
         public DuplicateFinalStateWarningException() {
             super("WARNİNG : Final state is already declared as final.");
         }
@@ -170,7 +176,8 @@ import java.time.format.DateTimeParseException;
             super(message);
         }
     }
-    public class UndeclaredSymbolInTransitionException extends RuntimeException {
+
+    class UndeclaredSymbolInTransitionException extends RuntimeException {
         public UndeclaredSymbolInTransitionException() {
             super("WARNİNG : Symbol in transition is not declared.");
         }
@@ -180,7 +187,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    public class UndeclaredStateInTransitionException extends RuntimeException {
+    class UndeclaredStateInTransitionException extends RuntimeException {
         public UndeclaredStateInTransitionException() {
             super("WARNİNG : State in transition is not declared.");
         }
@@ -190,7 +197,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    public class DuplicateTransitionOverrideException extends RuntimeException {
+    class DuplicateTransitionOverrideException extends RuntimeException {
         public DuplicateTransitionOverrideException() {
             super("WARNİNG : Transition overrides a previously defined transition.");
         }
@@ -199,7 +206,8 @@ import java.time.format.DateTimeParseException;
             super(message);
         }
     }
-    public class PrintFileCreationException extends IOException {
+
+    class PrintFileCreationException extends IOException {
         public PrintFileCreationException() {
             super("WARNİNG : Failed to create print output file.");
         }
@@ -209,7 +217,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    public class PrintFileWriteException extends IOException {
+    class PrintFileWriteException extends IOException {
         public PrintFileWriteException() {
             super("WARNİNG : Failed to write to print output file.");
         }
@@ -219,7 +227,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-     class InvalidPrintFilenameException extends RuntimeException {
+    class InvalidPrintFilenameException extends RuntimeException {
         public InvalidPrintFilenameException() {
             super("WARNİNG : Invalid or empty print filename specified.");
         }
@@ -228,7 +236,8 @@ import java.time.format.DateTimeParseException;
             super(message);
         }
     }
-    public class CompileFileCreationException extends IOException {
+
+    class CompileFileCreationException extends IOException {
         public CompileFileCreationException() {
             super("WARNİNG : Failed to create compiled FSM file.");
         }
@@ -238,7 +247,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    public class CompileSerializationException extends IOException {
+    class CompileSerializationException extends IOException {
         public CompileSerializationException() {
             super("WARNİNG : Failed to serialize FSM to binary file.");
         }
@@ -248,7 +257,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-     class InvalidCompileFilenameException extends RuntimeException {
+    class InvalidCompileFilenameException extends RuntimeException {
         public InvalidCompileFilenameException() {
             super("WARNİNG : Invalid or empty compile filename specified.");
         }
@@ -257,7 +266,8 @@ import java.time.format.DateTimeParseException;
             super(message);
         }
     }
-    public class ClearOperationFailureException extends RuntimeException {
+
+    class ClearOperationFailureException extends RuntimeException {
         public ClearOperationFailureException() {
             super("WARNİNG : Failed to clear FSM components.");
         }
@@ -266,7 +276,8 @@ import java.time.format.DateTimeParseException;
             super(message);
         }
     }
-    public class LoadFileNotFoundException extends IOException {
+
+    class LoadFileNotFoundException extends IOException {
         public LoadFileNotFoundException() {
             super("WARNİNG : Specified load file not found.");
         }
@@ -276,7 +287,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    public class LoadFileFormatException extends IOException {
+    class LoadFileFormatException extends IOException {
         public LoadFileFormatException() {
             super("WARNİNG : Load file content is in an invalid format.");
         }
@@ -285,7 +296,8 @@ import java.time.format.DateTimeParseException;
             super(message);
         }
     }
-     class InvalidInputSymbolException extends RuntimeException {
+
+    class InvalidInputSymbolException extends RuntimeException {
         public InvalidInputSymbolException() {
             super("WARNİNG : Input string contains an undeclared symbol.");
         }
@@ -295,7 +307,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-     class NoTransitionDefinedException extends RuntimeException {
+    class NoTransitionDefinedException extends RuntimeException {
         public NoTransitionDefinedException() {
             super("WARNİNG : No transition defined for current state and symbol.");
         }
@@ -305,7 +317,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    public class EmptyInputStringException extends RuntimeException {
+    class EmptyInputStringException extends RuntimeException {
         public EmptyInputStringException() {
             super("WARNİNG : Input string is empty.");
         }
@@ -314,7 +326,8 @@ import java.time.format.DateTimeParseException;
             super(message);
         }
     }
-    public class CommandLineFileNotFoundException extends IOException {
+
+    class CommandLineFileNotFoundException extends IOException {
         public CommandLineFileNotFoundException() {
             super("WARNİNG : Command-line specified file not found.");
         }
@@ -324,7 +337,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    public class CommandLineFileAccessException extends IOException {
+    class CommandLineFileAccessException extends IOException {
         public CommandLineFileAccessException() {
             super("WARNİNG : Unable to access command-line specified file.");
         }
@@ -334,7 +347,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    public class CommandLineExecutionException extends RuntimeException {
+    class CommandLineExecutionException extends RuntimeException {
         public CommandLineExecutionException() {
             super("WARNİNG : Error executing commands from command-line file.");
         }
@@ -343,22 +356,28 @@ import java.time.format.DateTimeParseException;
             super(message);
         }
     }
-     class InvalidCommandSyntaxException extends IOException{
-        public InvalidCommandSyntaxException(){
+
+    class InvalidCommandSyntaxException extends IOException {
+        public InvalidCommandSyntaxException() {
             super("WARNİNG : Error executing from syntax ");
         }
-        public InvalidCommandSyntaxException(String message){
+
+        public InvalidCommandSyntaxException(String message) {
             super(message);
         }
     }
-     class LoadCommandExecution extends IOException{
-        public LoadCommandExecution(){
+
+    class LoadCommandExecution extends IOException {
+        public LoadCommandExecution() {
             super("WARNİNG : Error executing from command");
         }
-        public LoadCommandExecution(String message){
+
+        public LoadCommandExecution(String message) {
             super(message);
         }
     }
+
+
     class States {
         private Set<String> states = new HashSet<>();
         private String initialState;
@@ -470,7 +489,6 @@ import java.time.format.DateTimeParseException;
             return finalStates;
         }
 
-        // New method to check if a state is final
         public boolean isFinalState(String state) {
             return finalStates.contains(state);
         }
@@ -484,14 +502,11 @@ import java.time.format.DateTimeParseException;
     }
     class CommandProcessor {
         public void processCommand(String command) throws MissingSemicolonException  {
-
             if (!command.contains(";")) {
                 throw new MissingSemicolonException();
             }
-
             int semicolonIndex = command.indexOf(';');
             String processedCommand = command.substring(0, semicolonIndex).trim();
-
 
             if (processedCommand.isEmpty()) {
                 return;
@@ -504,6 +519,7 @@ import java.time.format.DateTimeParseException;
             }
         }
     }
+
     class Compile {
         private FSM fsm;
 
@@ -674,33 +690,32 @@ import java.time.format.DateTimeParseException;
             } catch (NonAlphanumericSymbolException | DuplicateSymbolWarningException | EmptySymbolListException e) {
                 throw e;
             }
+        }
 
-            //bakılacak
-            public void clear() {
+            public void clear () {
                 // Semboller
                 if (symbols != null) {
                     symbols.clear();
                 }
 
-                // StatesManager varsa onu temizle
+                // States varsa onu temizle
                 if (states != null) {
-                    States.clear();
+                    states.clear();
                 }
 
                 // TransitionManager varsa onu da temizle
                 if (transitionManager != null) {
-                    Transition.clear();
+                    transitionManager.clear();
                 }
 
                 System.out.println("FSM cleared.");
 
             }
         }
-    }
 
-    class FSM implements Serializable {
+
+  public  class FSM implements Serializable {
         private static final long serialVersionUID = 1L;
-
         private LogManager logManager = new LogManager();
         public Set<String> symbols = new LinkedHashSet<>();
         public Set<String> states = new LinkedHashSet<>();
@@ -901,7 +916,7 @@ import java.time.format.DateTimeParseException;
     class Transition {
         private Set<String> validSymbols;
         private Set<String> validStates;
-        public Map<String, Map<String, Transition>> transitionTable;
+        public Map<String, Map<String, String>> transitionTable;
 
         public Transition(Set<String> validSymbols, Set<String> validStates) {
             this.validSymbols = new HashSet<>();
@@ -917,7 +932,14 @@ import java.time.format.DateTimeParseException;
 
         //Bakılcak
         public Transition(String symbol, String currentState, String nextState) {
-
+            this.validSymbols = new HashSet<>();
+            this.validStates = new HashSet<>();
+            this.transitionTable = new HashMap<>();
+            validSymbols.add(symbol.toUpperCase());
+            validStates.add(currentState.toUpperCase());
+            validStates.add(nextState.toUpperCase());
+            transitionTable.putIfAbsent(currentState.toUpperCase(), new HashMap<>());
+            transitionTable.get(currentState.toUpperCase()).put(symbol.toUpperCase(), nextState.toUpperCase());
         }
 
         public void processTransitionsCommand(String command) throws UndeclaredSymbolInTransitionException, UndeclaredStateInTransitionException, DuplicateTransitionOverrideException {
@@ -1028,13 +1050,13 @@ import java.time.format.DateTimeParseException;
                     return;
                 }
 
-                Transition t = Transition.getTransition(currentState, symbol);
-                if (t == null) {
+                String nextState = transitions.getTransition(currentState, symbol);
+                if (nextState == null) {
                     System.out.println(String.join(" ", stateSequence) + " NO");
                     return;
                 }
 
-                currentState = t.getNextState();
+                currentState = nextState;
                 stateSequence.add(currentState);
             }
 
@@ -1271,7 +1293,29 @@ import java.time.format.DateTimeParseException;
             return true;
         }
     }
+     public class Clear {
+         private FSM fsm;
+         private LogManager logManager;
 
+         public Clear(FSM fsm) {
+             this.fsm = fsm;
+             this.logManager = fsm.logManager;
+         }
+
+         public void handleClear() {
+             try {
+                 fsm.clear();
+                 logManager.stopLogging();
+                 System.out.println("FSM and logging cleared.");
+             } catch (LogFileWriteException e) {
+                 System.err.println("Error stopping logging: " + e.getMessage());
+             } catch (ClearOperationFailureException e) {
+                 System.err.println("Error clearing FSM: " + e.getMessage());
+             } catch (Exception e) {
+                 System.err.println("Unexpected error during clear: " + e.getMessage());
+             }
+         }
+     }
 
 
     class LogManager {
@@ -1332,7 +1376,23 @@ import java.time.format.DateTimeParseException;
                 System.out.println("Error: Invalid LOG command format.");
             }
         }
+        public void clear() throws LogFileWriteException {
+            if (isLogging) {
+                stopLogging();
+            }
+
+            if (logWriter != null) {
+                try {
+                    logWriter = new BufferedWriter(new FileWriter(logWriter.toString(), false));
+                    logWriter.write("");
+                    logWriter.flush();
+                } catch (IOException e) {
+                    throw new LogFileWriteException("Failed to clear log file: " + e.getMessage());
+                }
+            }
+        }
     }
+
     private static void processCommand(String command, Print print, Load load, Clear clear, Compile compile, CommandProcessor processor) throws Exception {
         String[] tokens = command.split("\\s+");
         String mainCommand = tokens[0].toUpperCase();
@@ -1375,7 +1435,7 @@ import java.time.format.DateTimeParseException;
             try {
                 FSMMAINN fsm = new FSMMAINN();
                 Print print = new Print(fsm);
-                Clear clear = new clear(fsm);
+                Clear clear = new Clear(fsm);
                 Load load = new Load(fsm);
                 Compile compile = new Compile(fsm);
                 CommandProcessor processor = new CommandProcessor();
