@@ -1298,23 +1298,23 @@ import java.time.format.DateTimeParseException;
 
         public Clear(FSM fsm) {
             this.fsm = fsm;
-            this.logManager = fsm.logManager;
+            this.logManager =logManager;
         }
 
         public void handleClear() {
-             try {
+            try {
                 fsm.clear();
                 logManager.stopLogging();
                 System.out.println("FSM and logging cleared.");
-             } catch (LogFileWriteException e) {
+            } catch (LogFileWriteException e) {
                 System.err.println("Error stopping logging: " + e.getMessage());
-             } catch (ClearOperationFailureException e) {
+            } catch (ClearOperationFailureException e) {
                 System.err.println("Error clearing FSM: " + e.getMessage());
-             } catch (Exception e) {
+            } catch (Exception e) {
                 System.err.println("Unexpected error during clear: " + e.getMessage());
-             }
-         }
-     }
+            }
+        }
+    }
 
 
     class LogManager {
