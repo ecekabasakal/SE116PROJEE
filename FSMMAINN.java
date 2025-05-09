@@ -520,9 +520,9 @@ import java.time.format.DateTimeParseException;
     }
 
     class Compile {
-        private FSMMAINN fsm;
+        private FSM fsm;
 
-        public Compile(FSMMAINN fsm) {
+        public Compile(FSM fsm) {
             this.fsm = fsm;
         }
 
@@ -565,9 +565,9 @@ import java.time.format.DateTimeParseException;
         }
     }
     class Print {
-        private FSMMAINN fsm;
+        private FSM fsm;
 
-        public Print(FSMMAINN fsm) {
+        public Print(FSM fsm) {
             this.fsm = fsm;
         }
 
@@ -1066,11 +1066,11 @@ import java.time.format.DateTimeParseException;
 
 
     class Load {
-        private FSMMAINN fsm;
+        private FSM fsm;
         private Print print;
         private Compile compile;
 
-        public Load(FSMMAINN fsm) {
+        public Load(FSM fsm) {
             this.fsm = fsm;
             this.print = new Print(fsm);
             this.compile = new Compile(fsm);
@@ -1293,25 +1293,25 @@ import java.time.format.DateTimeParseException;
         }
     }
     class Clear {
-         private FSMMAINN fsm;
-         private LogManager logManager;
+        private FSM fsm;
+        private LogManager logManager;
 
-         public Clear(FSMMAINN fsm) {
-             this.fsm = fsm;
-             this.logManager = fsm.logManager;
-         }
+        public Clear(FSM fsm) {
+            this.fsm = fsm;
+            this.logManager = fsm.logManager;
+        }
 
-         public void handleClear() {
+        public void handleClear() {
              try {
-                 fsm.clear();
-                 logManager.stopLogging();
-                 System.out.println("FSM and logging cleared.");
+                fsm.clear();
+                logManager.stopLogging();
+                System.out.println("FSM and logging cleared.");
              } catch (LogFileWriteException e) {
-                 System.err.println("Error stopping logging: " + e.getMessage());
+                System.err.println("Error stopping logging: " + e.getMessage());
              } catch (ClearOperationFailureException e) {
-                 System.err.println("Error clearing FSM: " + e.getMessage());
+                System.err.println("Error clearing FSM: " + e.getMessage());
              } catch (Exception e) {
-                 System.err.println("Unexpected error during clear: " + e.getMessage());
+                System.err.println("Unexpected error during clear: " + e.getMessage());
              }
          }
      }
@@ -1392,43 +1392,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    private static void processCommand(String command, Print print, Load load, Clear clear, Compile compile, CommandProcessor processor) throws Exception {
-        String[] tokens = command.split("\\s+");
-        String mainCommand = tokens[0].toUpperCase();
-        String[] argsRest = java.util.Arrays.copyOfRange(tokens, 1, tokens.length);
-
-        switch (mainCommand) {
-            case "PRINT":
-                print.handlePrint(argsRest);
-                break;
-            case "LOAD":
-                if (argsRest.length == 0) {
-                    throw new InvalidCommandSyntaxException("Missing filename for LOAD command");
-                }
-                load.handleLoad(argsRest[0]);
-                break;
-            case "CLEAR":
-                clear.handleClear();
-                break;
-            case "COMPILE":
-                if (argsRest.length == 0) {
-                    throw new InvalidCommandSyntaxException("Missing filename for COMPILE command");
-                }
-                compile.handleCompile(argsRest[0]);
-                break;
-            default:
-                processor.processCommand(command);
-        }
-    }
-    private static boolean isValidVersion(String version) {
-        return version != null && version.matches("\\d+\\.\\d+\\.\\d+");
-    }
-    private static boolean isValidFilename(String filename) {
-        return filename.matches("[a-zA-Z0-9._-][a-zA-Z0-9._-]*");
-    }
-    private static boolean isValidCommand(String command) {
-        return command != null && !command.isEmpty() && command.matches("[a-zA-Z0-9\\s-]*");
-    }
+    
     public class FSMMAINN{
         public static void main(String[] args) {
             try {
@@ -1535,6 +1499,43 @@ import java.time.format.DateTimeParseException;
                 System.err.println("Unexpected error: " + e.getMessage());
                 System.exit(1);
             }
+        }
+        private static void processCommand(String command, Print print, Load load, Clear clear, Compile compile, CommandProcessor processor) throws Exception {
+            String[] tokens = command.split("\\s+");
+            String mainCommand = tokens[0].toUpperCase();
+            String[] argsRest = java.util.Arrays.copyOfRange(tokens, 1, tokens.length);
+    
+            switch (mainCommand) {
+                case "PRINT":
+                    print.handlePrint(argsRest);
+                    break;
+                case "LOAD":
+                    if (argsRest.length == 0) {
+                        throw new InvalidCommandSyntaxException("Missing filename for LOAD command");
+                    }
+                    load.handleLoad(argsRest[0]);
+                    break;
+                case "CLEAR":
+                    clear.handleClear();
+                    break;
+                case "COMPILE":
+                    if (argsRest.length == 0) {
+                        throw new InvalidCommandSyntaxException("Missing filename for COMPILE command");
+                    }
+                    compile.handleCompile(argsRest[0]);
+                    break;
+                default:
+                    processor.processCommand(command);
+            }
+        }
+        private static boolean isValidVersion(String version) {
+            return version != null && version.matches("\\d+\\.\\d+\\.\\d+");
+        }
+        private static boolean isValidFilename(String filename) {
+            return filename.matches("[a-zA-Z0-9._-][a-zA-Z0-9._-]*");
+        }
+        private static boolean isValidCommand(String command) {
+            return command != null && !command.isEmpty() && command.matches("[a-zA-Z0-9\\s-]*");
         }
     }
 
