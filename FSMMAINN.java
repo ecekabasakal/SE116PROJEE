@@ -1,4 +1,3 @@
-
 import java.util.*;
 import java.io.*;
 import java.lang.*;
@@ -1293,7 +1292,7 @@ import java.time.format.DateTimeParseException;
             return true;
         }
     }
-     public class Clear {
+    class Clear {
          private FSM fsm;
          private LogManager logManager;
 
@@ -1393,7 +1392,7 @@ import java.time.format.DateTimeParseException;
         }
     }
 
-    private static void processCommand(String command, Print print, Load load, Clear clear, Compile compile, CommandProcessor processor) throws Exception {
+    private static void processCommand(String command, Print print, Load load, Clear clear, Compile compile, CommandProcessor processor) throws FSMException {
         String[] tokens = command.split("\\s+");
         String mainCommand = tokens[0].toUpperCase();
         String[] argsRest = java.util.Arrays.copyOfRange(tokens, 1, tokens.length);
