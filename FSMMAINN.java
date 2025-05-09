@@ -520,9 +520,9 @@ import java.time.format.DateTimeParseException;
     }
 
     class Compile {
-        private FSM fsm;
+        private FSMMAINN fsm;
 
-        public Compile(FSM fsm) {
+        public Compile(FSMMAINN fsm) {
             this.fsm = fsm;
         }
 
@@ -565,9 +565,9 @@ import java.time.format.DateTimeParseException;
         }
     }
     class Print {
-        private FSM fsm;
+        private FSMMAINN fsm;
 
-        public Print(FSM fsm) {
+        public Print(FSMMAINN fsm) {
             this.fsm = fsm;
         }
 
@@ -1066,11 +1066,11 @@ import java.time.format.DateTimeParseException;
 
 
     class Load {
-        private FSM fsm;
+        private FSMMAINN fsm;
         private Print print;
         private Compile compile;
 
-        public Load(FSM fsm) {
+        public Load(FSMMAINN fsm) {
             this.fsm = fsm;
             this.print = new Print(fsm);
             this.compile = new Compile(fsm);
@@ -1293,10 +1293,10 @@ import java.time.format.DateTimeParseException;
         }
     }
     class Clear {
-         private FSM fsm;
+         private FSMMAINN fsm;
          private LogManager logManager;
 
-         public Clear(FSM fsm) {
+         public Clear(FSMMAINN fsm) {
              this.fsm = fsm;
              this.logManager = fsm.logManager;
          }
@@ -1432,7 +1432,7 @@ import java.time.format.DateTimeParseException;
     public class FSMMAINN{
         public static void main(String[] args) {
             try {
-                FSMMAINN fsm = new FSMMAINN();
+                FSM fsm = new FSM();
                 Print print = new Print(fsm);
                 Clear clear = new Clear(fsm);
                 Load load = new Load(fsm);
