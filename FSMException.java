@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-public class Exception{
+public class FSMException{
     public class InvalidVersionException extends RuntimeException {
         public InvalidVersionException() {
             super("WARNİNG : Invalid or missing GitHub version number.");
