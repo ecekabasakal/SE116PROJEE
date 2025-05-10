@@ -1,3 +1,4 @@
+
 import java.util.*;
 import java.io.*;
 import java.lang.*;
@@ -713,7 +714,7 @@ import java.time.format.DateTimeParseException;
         }
 
 
-  public  class FSM implements Serializable {
+    class FSM implements Serializable {
         private static final long serialVersionUID = 1L;
         private LogManager logManager = new LogManager();
         public Set<String> symbols = new LinkedHashSet<>();
@@ -1360,14 +1361,10 @@ import java.time.format.DateTimeParseException;
             }
         }
 
-        public void handleLogCommand(String command) throws LogFileCreationException, LogAlreadyActiveException {
+        public void handleLogCommand(String command) throws LogFileCreationException, LogAlreadyActiveException, LogFileWriteException {
             String[] commandParts = command.split("\\s+");
             if (commandParts.length == 1) {
-                try {
-                    stopLogging();
-                } catch (LogFileWriteException e) {
-                    System.out.println(e.getMessage());
-                }
+                stopLogging();
             } else if (commandParts.length == 2) {
                 String filename = commandParts[1];
                 startLogging(filename);
@@ -1538,7 +1535,3 @@ import java.time.format.DateTimeParseException;
             return command != null && !command.isEmpty() && command.matches("[a-zA-Z0-9\\s-]*");
         }
     }
-
-
-
-
