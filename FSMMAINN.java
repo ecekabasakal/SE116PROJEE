@@ -715,7 +715,7 @@ class InvalidVersionException extends RuntimeException {
         }
 
 
-  public  class FSM implements Serializable {
+    class FSM implements Serializable {
         private static final long serialVersionUID = 1L;
         private LogManager logManager = new LogManager();
         public Set<String> symbols = new LinkedHashSet<>();
@@ -1294,29 +1294,29 @@ class InvalidVersionException extends RuntimeException {
             return true;
         }
     }
-     public class Clear {
-         private FSM fsm;
-         private LogManager logManager;
+    class Clear {
+        private FSM fsm;
+        private LogManager logManager;
 
-         public Clear(FSM fsm) {
-             this.fsm = fsm;
-             this.logManager = fsm.logManager;
-         }
+        public Clear(FSM fsm) {
+            this.fsm = fsm;
+            this.logManager =logManager;
+        }
 
-         public void handleClear() {
-             try {
-                 fsm.clear();
-                 logManager.stopLogging();
-                 System.out.println("FSM and logging cleared.");
-             } catch (LogFileWriteException e) {
-                 System.err.println("Error stopping logging: " + e.getMessage());
-             } catch (ClearOperationFailureException e) {
-                 System.err.println("Error clearing FSM: " + e.getMessage());
-             } catch (Exception e) {
-                 System.err.println("Unexpected error during clear: " + e.getMessage());
-             }
-         }
-     }
+        public void handleClear() {
+            try {
+                fsm.clear();
+                logManager.stopLogging();
+                System.out.println("FSM and logging cleared.");
+            } catch (LogFileWriteException e) {
+                System.err.println("Error stopping logging: " + e.getMessage());
+            } catch (ClearOperationFailureException e) {
+                System.err.println("Error clearing FSM: " + e.getMessage());
+            } catch (Exception e) {
+                System.err.println("Unexpected error during clear: " + e.getMessage());
+            }
+        }
+    }
 
 
     class LogManager {
@@ -1362,14 +1362,10 @@ class InvalidVersionException extends RuntimeException {
             }
         }
 
-        public void handleLogCommand(String command) throws LogFileCreationException, LogAlreadyActiveException {
+        public void handleLogCommand(String command) throws LogFileCreationException, LogAlreadyActiveException, LogFileWriteException {
             String[] commandParts = command.split("\\s+");
             if (commandParts.length == 1) {
-                try {
-                    stopLogging();
-                } catch (LogFileWriteException e) {
-                    System.out.println(e.getMessage());
-                }
+                stopLogging();
             } else if (commandParts.length == 2) {
                 String filename = commandParts[1];
                 startLogging(filename);
@@ -1394,47 +1390,11 @@ class InvalidVersionException extends RuntimeException {
         }
     }
 
-    private static void processCommand(String command, Print print, Load load, Clear clear, Compile compile, CommandProcessor processor) throws Exception {
-        String[] tokens = command.split("\\s+");
-        String mainCommand = tokens[0].toUpperCase();
-        String[] argsRest = java.util.Arrays.copyOfRange(tokens, 1, tokens.length);
-
-        switch (mainCommand) {
-            case "PRINT":
-                print.handlePrint(argsRest);
-                break;
-            case "LOAD":
-                if (argsRest.length == 0) {
-                    throw new InvalidCommandSyntaxException("Missing filename for LOAD command");
-                }
-                load.handleLoad(argsRest[0]);
-                break;
-            case "CLEAR":
-                clear.handleClear();
-                break;
-            case "COMPILE":
-                if (argsRest.length == 0) {
-                    throw new InvalidCommandSyntaxException("Missing filename for COMPILE command");
-                }
-                compile.handleCompile(argsRest[0]);
-                break;
-            default:
-                processor.processCommand(command);
-        }
-    }
-    private static boolean isValidVersion(String version) {
-        return version != null && version.matches("\\d+\\.\\d+\\.\\d+");
-    }
-    private static boolean isValidFilename(String filename) {
-        return filename.matches("[a-zA-Z0-9._-][a-zA-Z0-9._-]*");
-    }
-    private static boolean isValidCommand(String command) {
-        return command != null && !command.isEmpty() && command.matches("[a-zA-Z0-9\\s-]*");
-    }
+    
     public class FSMMAINN{
         public static void main(String[] args) {
             try {
-                FSMMAINN fsm = new FSMMAINN();
+                FSM fsm = new FSM();
                 Print print = new Print(fsm);
                 Clear clear = new Clear(fsm);
                 Load load = new Load(fsm);
@@ -1538,8 +1498,41 @@ class InvalidVersionException extends RuntimeException {
                 System.exit(1);
             }
         }
+        private static void processCommand(String command, Print print, Load load, Clear clear, Compile compile, CommandProcessor processor) throws Exception {
+            String[] tokens = command.split("\\s+");
+            String mainCommand = tokens[0].toUpperCase();
+            String[] argsRest = java.util.Arrays.copyOfRange(tokens, 1, tokens.length);
+    
+            switch (mainCommand) {
+                case "PRINT":
+                    print.handlePrint(argsRest);
+                    break;
+                case "LOAD":
+                    if (argsRest.length == 0) {
+                        throw new InvalidCommandSyntaxException("Missing filename for LOAD command");
+                    }
+                    load.handleLoad(argsRest[0]);
+                    break;
+                case "CLEAR":
+                    clear.handleClear();
+                    break;
+                case "COMPILE":
+                    if (argsRest.length == 0) {
+                        throw new InvalidCommandSyntaxException("Missing filename for COMPILE command");
+                    }
+                    compile.handleCompile(argsRest[0]);
+                    break;
+                default:
+                    processor.processCommand(command);
+            }
+        }
+        private static boolean isValidVersion(String version) {
+            return version != null && version.matches("\\d+\\.\\d+\\.\\d+");
+        }
+        private static boolean isValidFilename(String filename) {
+            return filename.matches("[a-zA-Z0-9._-][a-zA-Z0-9._-]*");
+        }
+        private static boolean isValidCommand(String command) {
+            return command != null && !command.isEmpty() && command.matches("[a-zA-Z0-9\\s-]*");
+        }
     }
-
-
-
-

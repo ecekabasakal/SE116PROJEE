@@ -6,7 +6,7 @@ public void clear() {
         }
 
         // StatesManager varsa onu temizle
-        if (statesManager != null && statesManager.getStates() != null) {
+        if (StatesManager != null && statesManager.getStates() != null) {
             statesManager.getStates().clear();
         }
 
