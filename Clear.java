@@ -11,7 +11,7 @@ public void clear() {
         }
 
         // TransitionManager varsa onu da temizle
-        if (transitionManager != null) {
+        if (TransitionManager != null) {
             transitionManager.clear();
         }
 
