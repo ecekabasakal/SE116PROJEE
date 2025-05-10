@@ -7,7 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 
-    class InvalidVersionException extends RuntimeException {
+    
+class InvalidVersionException extends RuntimeException {
         public InvalidVersionException() {
             super("WARNİNG : Invalid or missing GitHub version number.");
         }
