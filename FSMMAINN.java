@@ -6,1399 +6,1584 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 
-    class InvalidVersionException extends RuntimeException {
-        public InvalidVersionException() {
-            super("WARNİNG : Invalid or missing GitHub version number.");
-        }
-
-        public InvalidVersionException(String message) {
-            super(message);
-        }
+class InvalidVersionException extends RuntimeException {
+    public InvalidVersionException() {
+        super("WARNİNG : Invalid or missing GitHub version number.");
     }
 
-    class StartupFormatException extends RuntimeException {
-        public StartupFormatException() {
-            super("WARNİNG : Failed to format startup message.");
-        }
+    public InvalidVersionException(String message) {
+        super(message);
+    }
+}
 
-        public StartupFormatException(String message) {
-            super(message);
-        }
+class StartupFormatException extends RuntimeException {
+    public StartupFormatException() {
+        super("WARNİNG : Failed to format startup message.");
     }
 
-    class MissingSemicolonException extends RuntimeException {
-        public MissingSemicolonException() {
-            super("WARNİNG : Command is missing a semicolon terminator.");
-        }
+    public StartupFormatException(String message) {
+        super(message);
+    }
+}
 
-        public MissingSemicolonException(String message) {
-            super(message);
-        }
+class MissingSemicolonException extends RuntimeException {
+    public MissingSemicolonException() {
+        super("WARNİNG : Command is missing a semicolon terminator.");
     }
 
-    class LogFileCreationException extends IOException {
-        public LogFileCreationException() {
-            super("WARNİNG : Failed to create log file.");
-        }
+    public MissingSemicolonException(String message) {
+        super(message);
+    }
+}
 
-        public LogFileCreationException(String message) {
-            super(message);
-        }
+class LogFileCreationException extends IOException {
+    public LogFileCreationException() {
+        super("WARNİNG : Failed to create log file.");
     }
 
-    class LogFileWriteException extends IOException {
-        public LogFileWriteException() {
-            super("WARNİNG : Failed to write to log file.");
-        }
+    public LogFileCreationException(String message) {
+        super(message);
+    }
+}
 
-        public LogFileWriteException(String message) {
-            super(message);
-        }
+class LogFileWriteException extends IOException {
+    public LogFileWriteException() {
+        super("WARNİNG : Failed to write to log file.");
     }
 
-    class LogAlreadyActiveException extends RuntimeException {
-        public LogAlreadyActiveException() {
-            super("WARNİNG : Logging is already active for another file.");
-        }
+    public LogFileWriteException(String message) {
+        super(message);
+    }
+}
 
-        public LogAlreadyActiveException(String message) {
-            super(message);
-        }
+class LogAlreadyActiveException extends RuntimeException {
+    public LogAlreadyActiveException() {
+        super("WARNİNG : Logging is already active for another file.");
     }
 
-    class NonAlphanumericSymbolException extends RuntimeException {
-        public NonAlphanumericSymbolException() {
-            super("WARNİNG : Symbol must be alphanumeric.");
-        }
+    public LogAlreadyActiveException(String message) {
+        super(message);
+    }
+}
 
-        public NonAlphanumericSymbolException(String message) {
-            super(message);
-        }
+class NonAlphanumericSymbolException extends RuntimeException {
+    public NonAlphanumericSymbolException() {
+        super("WARNİNG : Symbol must be alphanumeric.");
     }
 
-    class DuplicateSymbolWarningException extends RuntimeException {
-        public DuplicateSymbolWarningException() {
-            super("WARNİNG : Symbol is already declared.");
-        }
+    public NonAlphanumericSymbolException(String message) {
+        super(message);
+    }
+}
 
-        public DuplicateSymbolWarningException(String message) {
-            super(message);
-        }
+class DuplicateSymbolWarningException extends RuntimeException {
+    public DuplicateSymbolWarningException() {
+        super("WARNİNG : Symbol is already declared.");
     }
 
-    class EmptySymbolListException extends RuntimeException {
-        public EmptySymbolListException() {
-            super("WARNİNG : No symbols have been declared yet.");
-        }
+    public DuplicateSymbolWarningException(String message) {
+        super(message);
+    }
+}
 
-        public EmptySymbolListException(String message) {
-            super(message);
-        }
+class EmptySymbolListException extends RuntimeException {
+    public EmptySymbolListException() {
+        super("WARNİNG : No symbols have been declared yet.");
     }
 
-    class NonAlphanumericStateException extends RuntimeException {
-        public NonAlphanumericStateException() {
-            super("WARNİNG : State must be alphanumeric.");
-        }
+    public EmptySymbolListException(String message) {
+        super(message);
+    }
+}
 
-        public NonAlphanumericStateException(String message) {
-            super(message);
-        }
+class NonAlphanumericStateException extends RuntimeException {
+    public NonAlphanumericStateException() {
+        super("WARNİNG : State must be alphanumeric.");
     }
 
-    class DuplicateStateWarningException extends RuntimeException {
-        public DuplicateStateWarningException() {
-            super("WARNİNG : State is already declared.");
-        }
+    public NonAlphanumericStateException(String message) {
+        super(message);
+    }
+}
 
-        public DuplicateStateWarningException(String message) {
-            super(message);
-        }
+class DuplicateStateWarningException extends RuntimeException {
+    public DuplicateStateWarningException() {
+        super("WARNİNG : State is already declared.");
     }
 
-    class EmptyStateListException extends RuntimeException {
-        public EmptyStateListException() {
-            super("WARNİNG : No states have been declared yet.");
-        }
+    public DuplicateStateWarningException(String message) {
+        super(message);
+    }
+}
 
-        public EmptyStateListException(String message) {
-            super(message);
-        }
+class EmptyStateListException extends RuntimeException {
+    public EmptyStateListException() {
+        super("WARNİNG : No states have been declared yet.");
     }
 
-    class InvalidInitialStateException extends RuntimeException {
-        public InvalidInitialStateException() {
-            super("WARNİNG : Invalid initial state specified.");
-        }
+    public EmptyStateListException(String message) {
+        super(message);
+    }
+}
 
-        public InvalidInitialStateException(String message) {
-            super(message);
-        }
+class InvalidInitialStateException extends RuntimeException {
+    public InvalidInitialStateException() {
+        super("WARNİNG : Invalid initial state specified.");
     }
 
-    class UndeclaredInitialStateWarningException extends RuntimeException {
-        public UndeclaredInitialStateWarningException() {
-            super("WARNİNG : Initial state was not previously declared.");
-        }
+    public InvalidInitialStateException(String message) {
+        super(message);
+    }
+}
 
-        public UndeclaredInitialStateWarningException(String message) {
-            super(message);
-        }
+class UndeclaredInitialStateWarningException extends RuntimeException {
+    public UndeclaredInitialStateWarningException() {
+        super("WARNİNG : Initial state was not previously declared.");
     }
 
-    class InvalidFinalStateException extends RuntimeException {
-        public InvalidFinalStateException() {
-            super("WARNİNG : Invalid final state specified.");
-        }
+    public UndeclaredInitialStateWarningException(String message) {
+        super(message);
+    }
+}
 
-        public InvalidFinalStateException(String message) {
-            super(message);
-        }
+class InvalidFinalStateException extends RuntimeException {
+    public InvalidFinalStateException() {
+        super("WARNİNG : Invalid final state specified.");
     }
 
-    class UndeclaredFinalStateWarningException extends RuntimeException {
-        public UndeclaredFinalStateWarningException() {
-            super("WARNİNG : Final state was not previously declared.");
-        }
+    public InvalidFinalStateException(String message) {
+        super(message);
+    }
+}
 
-        public UndeclaredFinalStateWarningException(String message) {
-            super(message);
-        }
+class UndeclaredFinalStateWarningException extends RuntimeException {
+    public UndeclaredFinalStateWarningException() {
+        super("WARNİNG : Final state was not previously declared.");
     }
 
-    class DuplicateFinalStateWarningException extends RuntimeException {
-        public DuplicateFinalStateWarningException() {
-            super("WARNİNG : Final state is already declared as final.");
-        }
+    public UndeclaredFinalStateWarningException(String message) {
+        super(message);
+    }
+}
 
-        public DuplicateFinalStateWarningException(String message) {
-            super(message);
-        }
+class DuplicateFinalStateWarningException extends RuntimeException {
+    public DuplicateFinalStateWarningException() {
+        super("WARNİNG : Final state is already declared as final.");
     }
 
-    class UndeclaredSymbolInTransitionException extends RuntimeException {
-        public UndeclaredSymbolInTransitionException() {
-            super("WARNİNG : Symbol in transition is not declared.");
-        }
+    public DuplicateFinalStateWarningException(String message) {
+        super(message);
+    }
+}
 
-        public UndeclaredSymbolInTransitionException(String message) {
-            super(message);
-        }
+class UndeclaredSymbolInTransitionException extends RuntimeException {
+    public UndeclaredSymbolInTransitionException() {
+        super("WARNİNG : Symbol in transition is not declared.");
     }
 
-    class UndeclaredStateInTransitionException extends RuntimeException {
-        public UndeclaredStateInTransitionException() {
-            super("WARNİNG : State in transition is not declared.");
-        }
+    public UndeclaredSymbolInTransitionException(String message) {
+        super(message);
+    }
+}
 
-        public UndeclaredStateInTransitionException(String message) {
-            super(message);
-        }
+class UndeclaredStateInTransitionException extends RuntimeException {
+    public UndeclaredStateInTransitionException() {
+        super("WARNİNG : State in transition is not declared.");
     }
 
-    class DuplicateTransitionOverrideException extends RuntimeException {
-        public DuplicateTransitionOverrideException() {
-            super("WARNİNG : Transition overrides a previously defined transition.");
-        }
+    public UndeclaredStateInTransitionException(String message) {
+        super(message);
+    }
+}
 
-        public DuplicateTransitionOverrideException(String message) {
-            super(message);
-        }
+class DuplicateTransitionOverrideException extends RuntimeException {
+    public DuplicateTransitionOverrideException() {
+        super("WARNİNG : Transition overrides a previously defined transition.");
     }
 
-    class PrintFileCreationException extends IOException {
-        public PrintFileCreationException() {
-            super("WARNİNG : Failed to create print output file.");
-        }
+    public DuplicateTransitionOverrideException(String message) {
+        super(message);
+    }
+}
 
-        public PrintFileCreationException(String message) {
-            super(message);
-        }
+class PrintFileCreationException extends IOException {
+    public PrintFileCreationException() {
+        super("WARNİNG : Failed to create print output file.");
     }
 
-    class PrintFileWriteException extends IOException {
-        public PrintFileWriteException() {
-            super("WARNİNG : Failed to write to print output file.");
-        }
+    public PrintFileCreationException(String message) {
+        super(message);
+    }
+}
 
-        public PrintFileWriteException(String message) {
-            super(message);
-        }
+class PrintFileWriteException extends IOException {
+    public PrintFileWriteException() {
+        super("WARNİNG : Failed to write to print output file.");
     }
 
-    class InvalidPrintFilenameException extends RuntimeException {
-        public InvalidPrintFilenameException() {
-            super("WARNİNG : Invalid or empty print filename specified.");
-        }
+    public PrintFileWriteException(String message) {
+        super(message);
+    }
+}
 
-        public InvalidPrintFilenameException(String message) {
-            super(message);
-        }
+class InvalidPrintFilenameException extends RuntimeException {
+    public InvalidPrintFilenameException() {
+        super("WARNİNG : Invalid or empty print filename specified.");
     }
 
-    class CompileFileCreationException extends IOException {
-        public CompileFileCreationException() {
-            super("WARNİNG : Failed to create compiled FSM file.");
-        }
+    public InvalidPrintFilenameException(String message) {
+        super(message);
+    }
+}
 
-        public CompileFileCreationException(String message) {
-            super(message);
-        }
+class CompileFileCreationException extends IOException {
+    public CompileFileCreationException() {
+        super("WARNİNG : Failed to create compiled FSM file.");
     }
 
-    class CompileSerializationException extends IOException {
-        public CompileSerializationException() {
-            super("WARNİNG : Failed to serialize FSM to binary file.");
-        }
+    public CompileFileCreationException(String message) {
+        super(message);
+    }
+}
 
-        public CompileSerializationException(String message) {
-            super(message);
-        }
+class CompileSerializationException extends IOException {
+    public CompileSerializationException() {
+        super("WARNİNG : Failed to serialize FSM to binary file.");
     }
 
-    class InvalidCompileFilenameException extends RuntimeException {
-        public InvalidCompileFilenameException() {
-            super("WARNİNG : Invalid or empty compile filename specified.");
-        }
+    public CompileSerializationException(String message) {
+        super(message);
+    }
+}
 
-        public InvalidCompileFilenameException(String message) {
-            super(message);
-        }
+class InvalidCompileFilenameException extends RuntimeException {
+    public InvalidCompileFilenameException() {
+        super("WARNİNG : Invalid or empty compile filename specified.");
     }
 
-    class ClearOperationFailureException extends RuntimeException {
-        public ClearOperationFailureException() {
-            super("WARNİNG : Failed to clear FSM components.");
-        }
+    public InvalidCompileFilenameException(String message) {
+        super(message);
+    }
+}
 
-        public ClearOperationFailureException(String message) {
-            super(message);
-        }
+class ClearOperationFailureException extends RuntimeException {
+    public ClearOperationFailureException() {
+        super("WARNİNG : Failed to clear FSM components.");
     }
 
-    class LoadFileNotFoundException extends IOException {
-        public LoadFileNotFoundException() {
-            super("WARNİNG : Specified load file not found.");
-        }
+    public ClearOperationFailureException(String message) {
+        super(message);
+    }
+}
 
-        public LoadFileNotFoundException(String message) {
-            super(message);
-        }
+class LoadFileNotFoundException extends IOException {
+    public LoadFileNotFoundException() {
+        super("WARNİNG : Specified load file not found.");
     }
 
-    class LoadFileFormatException extends IOException {
-        public LoadFileFormatException() {
-            super("WARNİNG : Load file content is in an invalid format.");
-        }
+    public LoadFileNotFoundException(String message) {
+        super(message);
+    }
+}
 
-        public LoadFileFormatException(String message) {
-            super(message);
-        }
+class LoadFileFormatException extends IOException {
+    public LoadFileFormatException() {
+        super("WARNİNG : Load file content is in an invalid format.");
     }
 
-    class InvalidInputSymbolException extends RuntimeException {
-        public InvalidInputSymbolException() {
-            super("WARNİNG : Input string contains an undeclared symbol.");
-        }
+    public LoadFileFormatException(String message) {
+        super(message);
+    }
+}
 
-        public InvalidInputSymbolException(String message) {
-            super(message);
-        }
+class InvalidInputSymbolException extends RuntimeException {
+    public InvalidInputSymbolException() {
+        super("WARNİNG : Input string contains an undeclared symbol.");
     }
 
-    class NoTransitionDefinedException extends RuntimeException {
-        public NoTransitionDefinedException() {
-            super("WARNİNG : No transition defined for current state and symbol.");
-        }
+    public InvalidInputSymbolException(String message) {
+        super(message);
+    }
+}
 
-        public NoTransitionDefinedException(String message) {
-            super(message);
-        }
+class NoTransitionDefinedException extends RuntimeException {
+    public NoTransitionDefinedException() {
+        super("WARNİNG : No transition defined for current state and symbol.");
     }
 
-    class EmptyInputStringException extends RuntimeException {
-        public EmptyInputStringException() {
-            super("WARNİNG : Input string is empty.");
-        }
+    public NoTransitionDefinedException(String message) {
+        super(message);
+    }
+}
 
-        public EmptyInputStringException(String message) {
-            super(message);
-        }
+class EmptyInputStringException extends RuntimeException {
+    public EmptyInputStringException() {
+        super("WARNİNG : Input string is empty.");
     }
 
-    class CommandLineFileNotFoundException extends IOException {
-        public CommandLineFileNotFoundException() {
-            super("WARNİNG : Command-line specified file not found.");
-        }
+    public EmptyInputStringException(String message) {
+        super(message);
+    }
+}
 
-        public CommandLineFileNotFoundException(String message) {
-            super(message);
-        }
+class CommandLineFileNotFoundException extends IOException {
+    public CommandLineFileNotFoundException() {
+        super("WARNİNG : Command-line specified file not found.");
     }
 
-    class CommandLineFileAccessException extends IOException {
-        public CommandLineFileAccessException() {
-            super("WARNİNG : Unable to access command-line specified file.");
-        }
+    public CommandLineFileNotFoundException(String message) {
+        super(message);
+    }
+}
 
-        public CommandLineFileAccessException(String message) {
-            super(message);
-        }
+class CommandLineFileAccessException extends IOException {
+    public CommandLineFileAccessException() {
+        super("WARNİNG : Unable to access command-line specified file.");
     }
 
-    class CommandLineExecutionException extends RuntimeException {
-        public CommandLineExecutionException() {
-            super("WARNİNG : Error executing commands from command-line file.");
-        }
+    public CommandLineFileAccessException(String message) {
+        super(message);
+    }
+}
 
-        public CommandLineExecutionException(String message) {
-            super(message);
-        }
+class CommandLineExecutionException extends RuntimeException {
+    public CommandLineExecutionException() {
+        super("WARNİNG : Error executing commands from command-line file.");
     }
 
-    class InvalidCommandSyntaxException extends IOException {
-        public InvalidCommandSyntaxException() {
-            super("WARNİNG : Error executing from syntax ");
-        }
+    public CommandLineExecutionException(String message) {
+        super(message);
+    }
+}
 
-        public InvalidCommandSyntaxException(String message) {
-            super(message);
-        }
+class InvalidCommandSyntaxException extends IOException {
+    public InvalidCommandSyntaxException() {
+        super("WARNİNG : Error executing from syntax ");
     }
 
-    class LoadCommandExecution extends IOException {
-        public LoadCommandExecution() {
-            super("WARNİNG : Error executing from command");
-        }
+    public InvalidCommandSyntaxException(String message) {
+        super(message);
+    }
+}
 
-        public LoadCommandExecution(String message) {
-            super(message);
-        }
+class LoadCommandExecution extends IOException {
+    public LoadCommandExecution() {
+        super("WARNİNG : Error executing from command");
     }
 
+    public LoadCommandExecution(String message) {
+        super(message);
+    }
+}
 
-    class States {
-        private Set<String> states = new HashSet<>();
-        private String initialState;
-        private Set<String> finalStates = new HashSet<>();
 
-        public States() {
+class States {
+    private Set<String> states = new HashSet<>();
+    private String initialState;
+    private Set<String> finalStates = new HashSet<>();
 
-        }
 
-        private boolean isAlphanumeric(String s) {
-            return s.matches("[a-zA-Z0-9]+");
-        }
+    private boolean isAlphanumeric(String s) {
+        return s.matches("[a-zA-Z0-9]+");
+    }
 
-        public void processCommand(String commandLine) throws NonAlphanumericStateException, DuplicateStateWarningException, EmptyStateListException, InvalidInitialStateException, UndeclaredInitialStateWarningException, InvalidFinalStateException, UndeclaredFinalStateWarningException, DuplicateFinalStateWarningException {
-            String[] tokens = commandLine.trim().split("\\s+");
-            if (tokens.length == 0) return;
+    public void processCommand(String commandLine) throws NonAlphanumericStateException, DuplicateStateWarningException, EmptyStateListException, InvalidInitialStateException, UndeclaredInitialStateWarningException, InvalidFinalStateException, UndeclaredFinalStateWarningException, DuplicateFinalStateWarningException {
+        String[] tokens = commandLine.trim().split("\\s+");
+        if (tokens.length == 0) return;
 
-            String command = tokens[0].toUpperCase();
+        String command = tokens[0].toUpperCase();
 
-            switch (command) {
-                case "STATES":
-                    if (tokens.length == 1) {
-                        printStates();
-                    } else {
-                        for (int i = 1; i < tokens.length; i++) {
-                            String state = tokens[i];
-                            if (isAlphanumeric(state)) {
-                                addState(state);
-                            } else {
-                                throw new NonAlphanumericStateException("Warning: State \"" + state + "\" is not alphanumeric and will be ignored.");
-                            }
-                        }
-                    }
-                    break;
-
-                case "INITIAL-STATE":
-                    if (tokens.length < 2) {
-                        throw new InvalidInitialStateException("Warning: INITIAL-STATE command requires a state name.");
-                    } else {
-                        String initialState = tokens[1];
-                        if (isAlphanumeric(initialState)) {
-                            setInitialState(initialState);
+        switch (command) {
+            case "STATES":
+                if (tokens.length == 1) {
+                    printStates();
+                } else {
+                    for (int i = 1; i < tokens.length; i++) {
+                        String state = tokens[i];
+                        if (isAlphanumeric(state)) {
+                            addState(state);
                         } else {
-                            throw new InvalidInitialStateException("Warning: Initial state \"" + initialState + "\" is not alphanumeric.");
+                            throw new NonAlphanumericStateException("Warning: State \"" + state + "\" is not alphanumeric and will be ignored.");
                         }
                     }
-                    break;
+                }
+                break;
 
-                case "FINAL-STATES":
-                    if (tokens.length < 2) {
-                        throw new InvalidFinalStateException("Warning: FINAL-STATES command requires at least one state.");
+            case "INITIAL-STATE":
+                if (tokens.length < 2) {
+                    throw new InvalidInitialStateException("Warning: INITIAL-STATE command requires a state name.");
+                } else {
+                    String initialState = tokens[1];
+                    if (isAlphanumeric(initialState)) {
+                        setInitialState(initialState);
                     } else {
-                        for (int i = 1; i < tokens.length; i++) {
-                            String finalState = tokens[i];
-                            if (isAlphanumeric(finalState)) {
-                                addFinalState(finalState);
-                            } else {
-                                throw new InvalidFinalStateException("Warning: Final state \"" + finalState + "\" is not alphanumeric and will be ignored.");
-                            }
+                        throw new InvalidInitialStateException("Warning: Initial state \"" + initialState + "\" is not alphanumeric.");
+                    }
+                }
+                break;
+
+            case "FINAL-STATES":
+                if (tokens.length < 2) {
+                    throw new InvalidFinalStateException("Warning: FINAL-STATES command requires at least one state.");
+                } else {
+                    for (int i = 1; i < tokens.length; i++) {
+                        String finalState = tokens[i];
+                        if (isAlphanumeric(finalState)) {
+                            addFinalState(finalState);
+                        } else {
+                            throw new InvalidFinalStateException("Warning: Final state \"" + finalState + "\" is not alphanumeric and will be ignored.");
                         }
                     }
-                    break;
+                }
+                break;
 
-                default:
-                    System.out.println("Warning: Unknown command \"" + command + "\".");
+            default:
+                System.out.println("Warning: Unknown command \"" + command + "\".");
+        }
+    }
+    private void addState(String state) {
+        if (states.contains(state)) {
+            throw new DuplicateStateWarningException("State already declared: " + state);
+        }
+        states.add(state);
+    }
+
+    private void setInitialState(String initialState) {
+        if (!isAlphanumeric(initialState)) {
+            throw new InvalidInitialStateException("Warning: Initial state \"" + initialState + "\" is not alphanumeric.");
+        }
+        if (!states.contains(initialState)) {
+            states.add(initialState);
+            System.out.println("Warning: Initial state \"" + initialState + "\" was not previously declared, added to states.");
+        }
+        this.initialState = initialState;
+    }
+
+    private void addFinalState(String finalState) {
+        if (!isAlphanumeric(finalState)) {
+            throw new InvalidFinalStateException("Warning: Final state \"" + finalState + "\" is not alphanumeric and will be ignored.");
+        }
+        if (!states.contains(finalState)) {
+            states.add(finalState);
+            System.out.println("Warning: Final state \"" + finalState + "\" was not previously declared, added to states.");
+        }
+        if (finalStates.contains(finalState)) {
+            throw new DuplicateFinalStateWarningException("Final state already declared: " + finalState);
+        }
+        finalStates.add(finalState);
+    }
+
+    private void printStates() {
+        if (states.isEmpty()) {
+            throw new EmptyStateListException();
+        }
+        System.out.println("States: " + states);
+    }
+
+    public Set<String> getStates() {
+        return states;
+    }
+
+    public String getInitialState() {
+        return initialState;
+    }
+
+    public Set<String> getFinalStates() {
+        return finalStates;
+    }
+
+    public boolean isFinalState(String state) {
+        return finalStates.contains(state);
+    }
+
+    public void clear() {
+        states.clear();
+        initialState = null;
+        finalStates.clear();
+    }
+
+}
+class CommandProcessor {
+    public void processCommand(String command) throws MissingSemicolonException  {
+        if (!command.contains(";")) {
+            throw new MissingSemicolonException();
+        }
+        int semicolonIndex = command.indexOf(';');
+        String processedCommand = command.substring(0, semicolonIndex).trim();
+
+        if (processedCommand.isEmpty()) {
+            return;
+        }
+        if (command.equalsIgnoreCase("EXIT")) {
+            System.out.println("TERMINATED BY USER");
+            System.exit(0);
+        } else {
+            System.out.println("Processing command: " + command);
+        }
+    }
+}
+
+class Compile {
+    private FSM fsm;
+
+    public Compile(FSM fsm) {
+        this.fsm = fsm;
+    }
+
+    public void handleCompile(String filename) {
+        try {
+            if (filename == null || filename.trim().isEmpty()) {
+                throw new InvalidCompileFilenameException("Filename cannot be null or empty");
             }
-        }
-
-        private void addFinalState(String finalState) {
-            if (!states.contains(finalState)) {
-                throw new UndeclaredFinalStateWarningException("Final state not declared: " + finalState);
+            if (!isValidFilename(filename)) {
+                throw new InvalidCompileFilenameException("Invalid filename format: " + filename);
             }
-            if (finalStates.contains(finalState)) {
-                throw new DuplicateFinalStateWarningException("Final state already declared: " + finalState);
+
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+                oos.writeObject(fsm);
+                oos.flush(); // Ensure all data is written
+                System.out.println("FSM compiled and saved to " + filename);
+            } catch (FileNotFoundException e) {
+
+                throw new CompileFileCreationException("Cannot create file: " + filename + " - " + e.getMessage());
+            } catch (IOException e) {
+
+                throw new CompileSerializationException("Error serializing FSM to file: " + filename + " - " + e.getMessage());
             }
-            finalStates.add(finalState);
+        } catch (InvalidCompileFilenameException e) {
+            System.err.println("Error: " + e.getMessage());
+        } catch (CompileFileCreationException e) {
+            System.err.println("Error: " + e.getMessage());
+        } catch (CompileSerializationException e) {
+            System.err.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+
+            System.err.println("Unexpected error while compiling FSM: " + e.getMessage());
+        }
+    }
+
+
+    private boolean isValidFilename(String filename) {
+
+        return filename.matches("[a-zA-Z0-9.-][a-zA-Z0-9.-]*");
+    }
+}
+class Print {
+    private FSM fsm;
+
+    public Print(FSM fsm) {
+        this.fsm = fsm;
+    }
+
+
+    public void handlePrint(String... args) {
+        if (args.length == 0) {
+            System.out.println(fsm.toString());
+            return;
         }
 
-        private void setInitialState(String initialState) {
-            if (!states.contains(initialState)) {
-                throw new UndeclaredInitialStateWarningException("Initial state not declared: " + initialState);
+        String filename = args[0];
+        try {
+
+            if (filename == null || filename.trim().isEmpty()) {
+                throw new InvalidPrintFilenameException("Filename cannot be null or empty");
             }
-            this.initialState = initialState;
-        }
-
-        private void printStates() {
-            if (states.isEmpty()) {
-                throw new EmptyStateListException();
+            if (!isValidFilename(filename)) {
+                throw new InvalidPrintFilenameException("Invalid filename format: " + filename);
             }
-            System.out.println("States: " + states);
-        }
 
-        private void addState(String state) {
-            if (states.contains(state)) {
-                throw new DuplicateStateWarningException("State already declared: " + state);
+            try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
+                writer.print("SYMBOLS ");
+                for (String symbol : fsm.symbols) {
+                    writer.print(symbol + " ");
+                }
+                writer.println(";");
+
+                writer.print("STATES ");
+                for (String state : fsm.states) {
+                    writer.print(state + " ");
+                }
+                writer.println(";");
+
+                writer.println("INITIAL-STATE " + (fsm.initialState != null ? fsm.initialState : "undefined") + ";");
+
+
+                writer.print("FINAL-STATES ");
+                for (String finalState : fsm.finalStates) {
+                    writer.print(finalState + " ");
+                }
+                writer.println(";");
+
+
+                writer.print("TRANSITIONS ");
+                boolean first = true;
+                for (var symbol : fsm.transitions.keySet()) {
+                    for (var fromState : fsm.transitions.get(symbol).keySet()) {
+                        var toState = fsm.transitions.get(symbol).get(fromState);
+                        if (!first) {
+                            writer.print(", ");
+                        }
+                        writer.print(symbol + " " + fromState + " " + toState);
+                        first = false;
+                    }
+                }
+                writer.println(";");
+
+
+                writer.flush();
+                System.out.println("FSM written to file: " + filename);
+            } catch (FileNotFoundException e) {
+
+                throw new PrintFileCreationException("Cannot create file: " + filename + " - " + e.getMessage());
+            } catch (IOException e) {
+                throw new PrintFileWriteException("Error writing to file: " + filename + " - " + e.getMessage());
             }
-            states.add(state);
+        } catch (InvalidPrintFilenameException e) {
+            System.err.println("Error: " + e.getMessage());
+        } catch (PrintFileCreationException e) {
+            System.err.println("Error: " + e.getMessage());
+        } catch (PrintFileWriteException e) {
+            System.err.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected error while printing to file: " + e.getMessage());
+        }
+    }
+
+    private boolean isValidFilename(String filename) {
+        return filename.matches("[a-zA-Z0-9.-][a-zA-Z0-9.-]*");
+    }
+}
+
+class SymbolManager {
+    private Set<String> symbols = new HashSet<>();
+    private States states;
+    private Transition transitionManager;
+
+
+    public SymbolManager(States states, Transition transitionManager) {
+        this.states = states;
+        this.transitionManager = transitionManager;
+    }
+
+
+    public void handleSymbolsCommand(String command) throws NonAlphanumericSymbolException, DuplicateSymbolWarningException, EmptySymbolListException {
+        try {
+            String[] symbolArray = command.trim().split("\\s+");
+
+
+            if (symbolArray.length == 0) {
+                if (symbols.isEmpty()) {
+                    throw new EmptySymbolListException();
+                }
+                System.out.println("Current symbols: " + symbols);
+                return;
+            }
+
+            for (String symbol : symbolArray) {
+                if (!symbol.matches("[a-zA-Z0-9]+")) {
+                    throw new NonAlphanumericSymbolException("Warning: invalid symbol " + symbol);
+                }
+
+                String normalizedSymbol = symbol.toLowerCase();
+
+                if (symbols.contains(normalizedSymbol)) {
+                    throw new DuplicateSymbolWarningException("Warning: symbol " + symbol + " already declared.");
+                } else {
+                    symbols.add(normalizedSymbol);
+                    System.out.println("Symbol " + symbol + " added.");
+                }
+            }
+        } catch (NonAlphanumericSymbolException | DuplicateSymbolWarningException | EmptySymbolListException e) {
+            throw e;
+        }
+    }
+
+    public void clear () {
+        // Semboller
+        if (symbols != null) {
+            symbols.clear();
         }
 
-        public Set<String> getStates() {
-            return states;
-        }
-
-        public String getInitialState() {
-            return initialState;
-        }
-
-        public Set<String> getFinalStates() {
-            return finalStates;
-        }
-
-        public boolean isFinalState(String state) {
-            return finalStates.contains(state);
-        }
-
-        public void clear() {
+        // States varsa onu temizle
+        if (states != null) {
             states.clear();
-            initialState = null;
-            finalStates.clear();
         }
+
+        // TransitionManager varsa onu da temizle
+        if (transitionManager != null) {
+            transitionManager.clear();
+        }
+
+        System.out.println("FSM cleared.");
 
     }
-    class CommandProcessor {
-        public void processCommand(String command) throws MissingSemicolonException  {
-            if (!command.contains(";")) {
-                throw new MissingSemicolonException();
-            }
-            int semicolonIndex = command.indexOf(';');
-            String processedCommand = command.substring(0, semicolonIndex).trim();
-
-            if (processedCommand.isEmpty()) {
-                return;
-            }
-            if (command.equalsIgnoreCase("EXIT")) {
-                System.out.println("TERMINATED BY USER");
-                System.exit(0);
-            } else {
-                System.out.println("Processing command: " + command);
-            }
-        }
+    public Set<String> getSymbols() {
+        return symbols;
     }
-
-    class Compile {
-        private FSM fsm;
-
-        public Compile(FSM fsm) {
-            this.fsm = fsm;
-        }
-
-        public void handleCompile(String filename) {
-            try {
-                if (filename == null || filename.trim().isEmpty()) {
-                    throw new InvalidCompileFilenameException("Filename cannot be null or empty");
-                }
-                if (!isValidFilename(filename)) {
-                    throw new InvalidCompileFilenameException("Invalid filename format: " + filename);
-                }
-
-                try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
-                    oos.writeObject(fsm);
-                    oos.flush(); // Ensure all data is written
-                    System.out.println("FSM compiled and saved to " + filename);
-                } catch (FileNotFoundException e) {
-
-                    throw new CompileFileCreationException("Cannot create file: " + filename + " - " + e.getMessage());
-                } catch (IOException e) {
-
-                    throw new CompileSerializationException("Error serializing FSM to file: " + filename + " - " + e.getMessage());
-                }
-            } catch (InvalidCompileFilenameException e) {
-                System.err.println("Error: " + e.getMessage());
-            } catch (CompileFileCreationException e) {
-                System.err.println("Error: " + e.getMessage());
-            } catch (CompileSerializationException e) {
-                System.err.println("Error: " + e.getMessage());
-            } catch (Exception e) {
-
-                System.err.println("Unexpected error while compiling FSM: " + e.getMessage());
-            }
-        }
-
-
-        private boolean isValidFilename(String filename) {
-
-            return filename.matches("[a-zA-Z0-9.-][a-zA-Z0-9.-]*");
-        }
-    }
-    class Print {
-        private FSM fsm;
-        
-        public Print(FSM fsm) {
-            this.fsm = fsm;
-        }
-        
-
-        public void handlePrint(String... args) {
-            if (args.length == 0) {
-                System.out.println(fsm.toString());
-                return;
-            }
-
-            String filename = args[0];
-            try {
-
-                if (filename == null || filename.trim().isEmpty()) {
-                    throw new InvalidPrintFilenameException("Filename cannot be null or empty");
-                }
-                if (!isValidFilename(filename)) {
-                    throw new InvalidPrintFilenameException("Invalid filename format: " + filename);
-                }
-
-                try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
-                    writer.print("SYMBOLS ");
-                    for (String symbol : fsm.symbols) {
-                        writer.print(symbol + " ");
-                    }
-                    writer.println(";");
-
-                    writer.print("STATES ");
-                    for (String state : fsm.states) {
-                        writer.print(state + " ");
-                    }
-                    writer.println(";");
-
-                    writer.println("INITIAL-STATE " + (fsm.initialState != null ? fsm.initialState : "undefined") + ";");
-
-
-                    writer.print("FINAL-STATES ");
-                    for (String finalState : fsm.finalStates) {
-                        writer.print(finalState + " ");
-                    }
-                    writer.println(";");
-
-
-                    writer.print("TRANSITIONS ");
-                    boolean first = true;
-                    for (var symbol : fsm.transitions.keySet()) {
-                        for (var fromState : fsm.transitions.get(symbol).keySet()) {
-                            var toState = fsm.transitions.get(symbol).get(fromState);
-                            if (!first) {
-                                writer.print(", ");
-                            }
-                            writer.print(symbol + " " + fromState + " " + toState);
-                            first = false;
-                        }
-                    }
-                    writer.println(";");
-
-
-                    writer.flush();
-                    System.out.println("FSM written to file: " + filename);
-                } catch (FileNotFoundException e) {
-
-                    throw new PrintFileCreationException("Cannot create file: " + filename + " - " + e.getMessage());
-                } catch (IOException e) {
-                    throw new PrintFileWriteException("Error writing to file: " + filename + " - " + e.getMessage());
-                }
-            } catch (InvalidPrintFilenameException e) {
-                System.err.println("Error: " + e.getMessage());
-            } catch (PrintFileCreationException e) {
-                System.err.println("Error: " + e.getMessage());
-            } catch (PrintFileWriteException e) {
-                System.err.println("Error: " + e.getMessage());
-            } catch (Exception e) {
-                System.err.println("Unexpected error while printing to file: " + e.getMessage());
-            }
-        }
-
-        private boolean isValidFilename(String filename) {
-            return filename.matches("[a-zA-Z0-9.-][a-zA-Z0-9.-]*");
-        }
-    }
-
-    class SymbolManager {
-        private Set<String> symbols = new HashSet<>();
-        private States states;
-        private Transition transitionManager;
-
-
-        public SymbolManager(States states, Transition transitionManager) {
-            this.states = states;
-            this.transitionManager = transitionManager;
-        }
-
-        public void handleSymbolsCommand(String command) throws NonAlphanumericSymbolException, DuplicateSymbolWarningException, EmptySymbolListException {
-            try {
-                String[] symbolArray = command.split("\s+");
-
-                if (symbolArray.length == 0) {
-                    if (symbols.isEmpty()) {
-                        throw new EmptySymbolListException();
-                    }
-                    System.out.println("Current symbols: " + symbols);
-                    return;
-                }
-
-                for (String symbol : symbolArray) {
-                    if (!symbol.matches("[a-zA-Z0-9]+")) {
-                        throw new NonAlphanumericSymbolException("Warning: invalid symbol " + symbol);
-                    }
-
-                    String normalizedSymbol = symbol.toLowerCase();
-
-                    if (symbols.contains(normalizedSymbol)) {
-                        throw new DuplicateSymbolWarningException("Warning: symbol " + symbol + " already declared.");
-                    } else {
-                        symbols.add(normalizedSymbol);
-                        System.out.println("Symbol " + symbol + " added.");
-                    }
-                }
-            } catch (NonAlphanumericSymbolException | DuplicateSymbolWarningException | EmptySymbolListException e) {
-                throw e;
-            }
-        }
-
-            public void clear () {
-                // Semboller
-                if (symbols != null) {
-                    symbols.clear();
-                }
-
-                // States varsa onu temizle
-                if (states != null) {
-                    states.clear();
-                }
-
-                // TransitionManager varsa onu da temizle
-                if (transitionManager != null) {
-                    transitionManager.clear();
-                }
-
-                System.out.println("FSM cleared.");
-
-            }
-        }
+}
 
 
 class FSM implements Serializable {
-        private static final long serialVersionUID = 1L;
-        private LogManager logManager = new LogManager();
-        public Set<String> symbols = new LinkedHashSet<>();
-        public Set<String> states = new LinkedHashSet<>();
-        public String initialState;
-        public Set<String> finalStates = new LinkedHashSet<>();
-        public Map<String, Map<String, String>> transitions = new HashMap<>();
+    private static final long serialVersionUID = 1L;
+    private LogManager logManager = new LogManager();
+    public Set<String> symbols = new LinkedHashSet<>();
+    public Set<String> states = new LinkedHashSet<>();
+    public String initialState;
+    public Set<String> finalStates = new LinkedHashSet<>();
+    public Map<String, Map<String, String>> transitions = new HashMap<>();
 
-        public void handleLogCommand(String command) {
-            try {
-                if (command == null || command.trim().isEmpty()) {
-                    throw new InvalidCommandSyntaxException("Log command cannot be null or empty");
+    public void handleLogCommand(String command) {
+        try {
+            if (command == null || command.trim().isEmpty()) {
+                throw new InvalidCommandSyntaxException("Log command cannot be null or empty");
+            }
+            logManager.handleLogCommand(command);
+        } catch (LogFileCreationException e) {
+            System.err.println("Error: Cannot create log file - " + e.getMessage());
+
+        } catch (LogAlreadyActiveException e) {
+            System.err.println("Error: Logging already active - " + e.getMessage());
+        } catch (InvalidCommandSyntaxException e) {
+            System.err.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected error in log command: " + e.getMessage());
+        }
+    }
+
+    public void logCommand(String command) {
+        try {
+            if (command == null || command.trim().isEmpty()) {
+                throw new InvalidCommandSyntaxException("Command to log cannot be null or empty");
+            }
+            logManager.logCommand(command);
+        } catch (LogFileWriteException e) {
+            System.err.println("Error: Cannot write command to log file - " + e.getMessage());
+        } catch (InvalidCommandSyntaxException e) {
+            System.err.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected error logging command: " + e.getMessage());
+        }
+    }
+
+    public void clear() {
+        try {
+            symbols.clear();
+            states.clear();
+            initialState = null;
+            finalStates.clear();
+            transitions.clear();
+        } catch (UnsupportedOperationException e) {
+            throw new ClearOperationFailureException("Failed to clear FSM data: " + e.getMessage());
+        } catch (Exception e) {
+            throw new ClearOperationFailureException("Unexpected error during clear operation: " + e.getMessage());
+        }
+    }
+
+    public Set<String> getSymbols() {
+        try {
+            if (symbols.isEmpty()) {
+                throw new EmptySymbolListException("Symbol list is empty");
+            }
+            return symbols;
+        } catch (EmptySymbolListException e) {
+            System.err.println("Warning: " + e.getMessage());
+            return symbols; // Return empty set for consistency
+        }
+    }
+
+    public Set<String> getStates() {
+        try {
+            if (states.isEmpty()) {
+                throw new EmptyStateListException("State list is empty");
+            }
+            return states;
+        } catch (EmptyStateListException e) {
+            System.err.println("Warning: " + e.getMessage());
+            return states; // Return empty set for consistency
+        }
+    }
+
+    public String getInitialState() {
+        return initialState;
+    }
+
+    public Set<String> getFinalStates() {
+        return finalStates;
+    }
+
+    public Map<String, Map<String, String>> getTransitions() {
+        return transitions;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        try {
+
+            if (symbols == null) {
+                throw new IllegalStateException("Symbols set is null");
+            }
+            sb.append("SYMBOLS ");
+            if (symbols.isEmpty()) {
+                throw new EmptySymbolListException("Symbol list is empty");
+            }
+            for (String symbol : symbols) {
+                if (symbol == null || !symbol.matches("[a-zA-Z0-9]")) {
+                    throw new NonAlphanumericSymbolException("Invalid symbol: " + symbol);
                 }
-                logManager.handleLogCommand(command);
-            } catch (LogFileCreationException e) {
-                System.err.println("Error: Cannot create log file - " + e.getMessage());
-            } catch (LogFileWriteException e) {
-                System.err.println("Error: Cannot write to log file - " + e.getMessage());
-            } catch (LogAlreadyActiveException e) {
-                System.err.println("Error: Logging already active - " + e.getMessage());
-            } catch (InvalidCommandSyntaxException e) {
-                System.err.println("Error: " + e.getMessage());
-            } catch (Exception e) {
-                System.err.println("Unexpected error in log command: " + e.getMessage());
+                sb.append(symbol).append(" ");
             }
-        }
+            sb.append("\n");
 
-        public void logCommand(String command) {
-            try {
-                if (command == null || command.trim().isEmpty()) {
-                    throw new InvalidCommandSyntaxException("Command to log cannot be null or empty");
+
+            if (states == null) {
+                throw new IllegalStateException("States set is null");
+            }
+            sb.append("STATES ");
+            if (states.isEmpty()) {
+                throw new EmptyStateListException("State list is empty");
+            }
+            for (String state : states) {
+                if (state == null || !state.matches("[a-zA-Z0-9]+")) {
+                    throw new NonAlphanumericStateException("Invalid state: " + state);
                 }
-                logManager.logCommand(command);
-            } catch (LogFileWriteException e) {
-                System.err.println("Error: Cannot write command to log file - " + e.getMessage());
-            } catch (InvalidCommandSyntaxException e) {
-                System.err.println("Error: " + e.getMessage());
-            } catch (Exception e) {
-                System.err.println("Unexpected error logging command: " + e.getMessage());
+                sb.append(state).append(" ");
+            }
+            sb.append("\n");
+
+
+            sb.append("INITIAL STATE: ");
+            sb.append(initialState != null ? initialState : "undefined");
+            if (initialState != null && !states.contains(initialState)) {
+                throw new UndeclaredInitialStateWarningException("Initial state not declared: " + initialState);
+            }
+            sb.append("\n");
+
+
+            if (finalStates == null) {
+                throw new IllegalStateException("Final states set is null");
+            }
+            sb.append("FINAL STATES: ");
+            for (String finalState : finalStates) {
+                if (finalState == null || !finalState.matches("[a-zA-Z0-9]+")) {
+                    throw new InvalidFinalStateException("Invalid final state: " + finalState);
+                }
+                if (!states.contains(finalState)) {
+                    throw new UndeclaredFinalStateWarningException("Final state not declared: " + finalState);
+                }
+                sb.append(finalState).append(" ");
+            }
+            sb.append("\n");
+
+
+            if (transitions == null) {
+                throw new IllegalStateException("Transitions map is null");
+            }
+            sb.append("TRANSITIONS:\n");
+            for (var entry : transitions.entrySet()) {
+                String symbol = entry.getKey();
+                if (!symbols.contains(symbol)) {
+                    throw new UndeclaredSymbolInTransitionException("Undeclared symbol in transition: " + symbol);
+                }
+                for (var sub : entry.getValue().entrySet()) {
+                    String fromState = sub.getKey();
+                    String toState = sub.getValue();
+                    if (!states.contains(fromState)) {
+                        throw new UndeclaredStateInTransitionException("Undeclared state in transition: " + fromState);
+                    }
+                    if (!states.contains(toState)) {
+                        throw new UndeclaredStateInTransitionException("Undeclared state in transition: " + toState);
+                    }
+                    sb.append(symbol).append(" ").append(fromState).append(" ").append(toState).append("\n");
+                }
+            }
+
+            return sb.toString();
+        } catch (EmptySymbolListException | EmptyStateListException e) {
+            System.err.println("Warning: " + e.getMessage());
+            return "FSM is empty or partially defined";
+        } catch (NonAlphanumericSymbolException | NonAlphanumericStateException | InvalidFinalStateException e) {
+            System.err.println("Error: " + e.getMessage());
+            return "Invalid FSM configuration";
+        } catch (UndeclaredInitialStateWarningException | UndeclaredFinalStateWarningException e) {
+            System.err.println("Warning: " + e.getMessage());
+            return sb != null ? sb.toString() : "FSM with warnings";
+        } catch (UndeclaredSymbolInTransitionException | UndeclaredStateInTransitionException e) {
+            System.err.println("Error: " + e.getMessage());
+            return "Invalid transition configuration";
+        } catch (IllegalStateException e) {
+            System.err.println("Error: " + e.getMessage());
+            return "FSM is not properly initialized";
+        } catch (Exception e) {
+            System.err.println("Unexpected error generating FSM string: " + e.getMessage());
+            return "Error generating FSM representation";
+        }
+    }
+}
+class Transition {
+    private Set<String> validSymbols;
+    private Set<String> validStates;
+    public Map<String, Map<String, String>> transitionTable;
+
+    public Transition(Set<String> validSymbols, Set<String> validStates) {
+        this.validSymbols = new HashSet<>();
+        for (String symbol : validSymbols) {
+            this.validSymbols.add(symbol.toUpperCase());
+        }
+        this.validStates = new HashSet<>();
+        for (String state : validStates) {
+            this.validStates.add(state.toUpperCase());
+        }
+        this.transitionTable = new HashMap<>();
+    }
+
+    public void processTransitionsCommand(String command) throws UndeclaredSymbolInTransitionException, UndeclaredStateInTransitionException, DuplicateTransitionOverrideException {
+
+        try {
+            String[] parts = command.substring("TRANSITIONS".length()).trim().split(",");
+
+            for (String part : parts) {
+                String[] tokens = part.trim().split("\\s+");
+                if (tokens.length != 3) {
+                    System.out.println("Invalid transition format: " + part.trim());
+                    continue;
+                }
+
+                String symbol = tokens[0].toUpperCase();
+                String currentState = tokens[1].toUpperCase();
+                String nextState = tokens[2].toUpperCase();
+
+                if (!validSymbols.contains(symbol)) {
+                    throw new UndeclaredSymbolInTransitionException("Error: invalid symbol $" + symbol + "$");
+                }
+                if (!validStates.contains(currentState)) {
+                    throw new UndeclaredStateInTransitionException("Error: invalid state $" + currentState + "$");
+                }
+                if (!validStates.contains(nextState)) {
+                    throw new UndeclaredStateInTransitionException("Error: invalid state $" + nextState + "$");
+                }
+                if (transitionTable.containsKey(currentState) && transitionTable.get(currentState).containsKey(symbol)) {
+                    throw new DuplicateTransitionOverrideException("Warning: transition already exists for <" + symbol + ", " + currentState + ">");
+                }
+
+                transitionTable.putIfAbsent(currentState, new HashMap<>());
+                transitionTable.get(currentState).put(symbol, nextState);
+            }
+        } catch (UndeclaredSymbolInTransitionException | UndeclaredStateInTransitionException | DuplicateTransitionOverrideException e) {
+            throw e;
+        }
+    }
+
+    public String getTransition(String currentState, String symbol) {
+        Map<String, String> row = transitionTable.get(currentState.toUpperCase());
+        if (row != null) {
+            return row.get(symbol.toUpperCase());
+        }
+        return null;
+    }
+    public void printTransitions() {
+        StringBuilder output = new StringBuilder();
+        boolean first = true;
+        for (String state : transitionTable.keySet()) {
+            for (Map.Entry<String, String> entry : transitionTable.get(state).entrySet()) {
+                if (!first) {
+                    output.append(", ");
+                }
+                output.append(entry.getKey()).append(" ").append(state).append(" ").append(entry.getValue());
+                first = false;
             }
         }
+        System.out.println(output.toString());
+    }
 
-        public void clear() {
-            try {
-                symbols.clear();
-                states.clear();
-                initialState = null;
-                finalStates.clear();
-                transitions.clear();
-            } catch (UnsupportedOperationException e) {
-                throw new ClearOperationFailureException("Failed to clear FSM data: " + e.getMessage());
-            } catch (Exception e) {
-                throw new ClearOperationFailureException("Unexpected error during clear operation: " + e.getMessage());
-            }
+    public void clear() {
+        transitionTable.clear();
+        validSymbols.clear();
+        validStates.clear();
+    }
+    public Map<String, Map<String, String>> getTransitionTable() {
+        return transitionTable;
+    }
+}
+
+class FSMExecutor {
+    private States states;
+    private Transition transitions;
+    private Set<String> validSymbols;
+
+    public FSMExecutor(States states, Transition transitions, Set<String> symbols) {
+        this.states = states;
+        this.transitions = transitions;
+        this.validSymbols = validSymbols;
+    }
+
+    public void execute(String input) {
+        input = input.trim().toUpperCase();
+        if (input.isEmpty()) {
+            System.out.println("Error: Input string is empty.");
+            return;
         }
 
-        public Set<String> getSymbols() {
-            try {
-                if (symbols.isEmpty()) {
+        String currentState = states.getInitialState();
+        if (currentState == null) {
+            System.out.println("Error: Initial state is not set.");
+            return;
+        }
+
+        List<String> stateSequence = new ArrayList<>();
+        stateSequence.add(currentState);
+
+        for (char ch : input.toCharArray()) {
+            String symbol = String.valueOf(ch).toUpperCase();
+
+            if (!validSymbols.contains(symbol)) {
+                System.out.println("Error: Invalid symbol " + symbol);
+                return;
+            }
+
+            String nextState = transitions.getTransition(currentState, symbol);
+            if (nextState == null) {
+                System.out.println(String.join(" ", stateSequence) + " NO");
+                return;
+            }
+
+            currentState = nextState;
+            stateSequence.add(currentState);
+        }
+
+        String result = states.isFinalState(currentState) ? "YES" : "NO";
+        System.out.println(String.join(" ", stateSequence) + " " + result);
+    }
+    public void executeToFile(String input, String filename) {
+        input = input.trim().toUpperCase();
+        if (input.isEmpty()) {
+            System.out.println("Error: Input string is empty.");
+            return;
+        }
+
+        String currentState = states.getInitialState();
+        if (currentState == null) {
+            System.out.println("Error: Initial state is not set.");
+            return;
+        }
+
+        List<String> stateSequence = new ArrayList<>();
+        stateSequence.add(currentState);
+
+        for (char ch : input.toCharArray()) {
+            String symbol = String.valueOf(ch).toUpperCase();
+
+            if (!validSymbols.contains(symbol)) {
+                System.out.println("Error: Invalid symbol " + symbol);
+                return;
+            }
+
+            String nextState = transitions.getTransition(currentState, symbol);
+            if (nextState == null) {
+                stateSequence.add("NO");
+                writeToFile(stateSequence, filename);
+                return;
+            }
+
+            currentState = nextState;
+            stateSequence.add(currentState);
+        }
+
+        String result = states.isFinalState(currentState) ? "YES" : "NO";
+        stateSequence.add(result);
+        writeToFile(stateSequence, filename);
+    }
+
+    private void writeToFile(List<String> stateSequence, String filename) {
+        try (FileWriter writer = new FileWriter(filename)) {
+            for (String state : stateSequence) {
+                writer.write(state + "\n");
+            }
+            System.out.println("FSM result written to " + filename);
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+}
+
+
+class Load {
+    private FSM fsm;
+    private Print print;
+    private Compile compile;
+
+    public Load(FSM fsm) {
+        this.fsm = fsm;
+        this.print = new Print(fsm);
+        this.compile = new Compile(fsm);
+    }
+
+    public void handleLoad(String filename) {
+        try {
+
+            if (filename == null || filename.trim().isEmpty()) {
+                throw new LoadFileFormatException("Filename cannot be null or empty");
+            }
+            if (!isValidFilename(filename)) {
+                throw new LoadFileFormatException("Invalid filename format: " + filename);
+            }
+
+            if (filename.endsWith(".fs")) {
+
+                try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+                    FSM loadedFSM = (FSM) ois.readObject();
+
+                    if (loadedFSM == null) {
+                        throw new LoadFileFormatException("Invalid FSM data in binary file: " + filename);
+                    }
+
+                    fsm.symbols = loadedFSM.symbols;
+                    fsm.states = loadedFSM.states;
+                    fsm.initialState = loadedFSM.initialState;
+                    fsm.finalStates = loadedFSM.finalStates;
+                    fsm.transitions = loadedFSM.transitions;
+                    System.out.println("FSM loaded from binary file: " + filename);
+                } catch (FileNotFoundException e) {
+                    throw new LoadFileNotFoundException("File not found: " + filename);
+                } catch (IOException | ClassNotFoundException | ClassCastException e) {
+                    throw new LoadFileFormatException("Invalid or corrupted binary file: " + filename + " - " + e.getMessage());
+                }
+            } else {
+
+                try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+                    String firstLine = reader.readLine();
+                    if (firstLine == null) {
+                        throw new LoadFileFormatException("File is empty: " + filename);
+                    }
+
+
+                    if (!isPlainText(firstLine)) {
+                        throw new LoadFileFormatException("File is not plain text: " + filename);
+                    }
+
+                    int lineNumber = 1;
+                    String line = firstLine.trim();
+                    do {
+
+                        if (line.startsWith("?")) {
+                            line = line.substring(1).trim();
+                        }
+
+                        int semicolon = line.indexOf(';');
+                        if (semicolon != -1) {
+                            line = line.substring(0, semicolon).trim();
+                        }
+
+                        if (!line.isEmpty()) {
+                            try {
+                                fsm.logCommand(line); // Log the command
+                                executeLine(line, fsm);
+                            } catch (Exception e) {
+
+                                throw new LoadCommandExecution("Error on line " + lineNumber + ": " + e.getMessage());
+                            }
+                        }
+
+                        lineNumber++;
+                        line = reader.readLine();
+                        if (line != null) {
+                            line = line.trim();
+                        }
+                    } while (line != null);
+
+                    System.out.println("Text file processed: " + filename);
+                } catch (FileNotFoundException e) {
+                    throw new LoadFileNotFoundException("File not found: " + filename);
+                } catch (IOException e) {
+                    throw new LoadFileFormatException("Error reading text file: " + filename + " - " + e.getMessage());
+                }
+            }
+        } catch (LoadFileNotFoundException e) {
+            System.err.println("Error: " + e.getMessage());
+        } catch (LoadFileFormatException e) {
+            System.err.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+
+            System.err.println("Unexpected error while loading file: " + e.getMessage());
+        }
+    }
+
+    private void executeLine(String line, FSM fsm) throws Exception {
+        int firstSpace = line.indexOf(" ");
+        String command = (firstSpace == -1) ? line : line.substring(0, firstSpace);
+        String[] args = (firstSpace == -1) ? new String[0] : line.substring(firstSpace + 1).split("\\s+");
+
+        switch (command.toUpperCase()) {
+            case "CLEAR":
+                fsm.clear();
+                break;
+            case "PRINT":
+                print.handlePrint(args);
+                break;
+            case "SYMBOLS":
+                for (String symbol : args) {
+                    if (!symbol.matches("[a-zA-Z0-9]")) {
+                        throw new NonAlphanumericSymbolException("Symbol must be alphanumeric: " + symbol);
+                    }
+                    if (fsm.symbols.contains(symbol)) {
+                        throw new DuplicateSymbolWarningException("Symbol already declared: " + symbol);
+                    }
+                    fsm.symbols.add(symbol);
+                }
+                if (args.length == 0 && fsm.symbols.isEmpty()) {
                     throw new EmptySymbolListException("Symbol list is empty");
                 }
-                return symbols;
-            } catch (EmptySymbolListException e) {
-                System.err.println("Warning: " + e.getMessage());
-                return symbols; // Return empty set for consistency
-            }
-        }
-
-        public Set<String> getStates() {
-            try {
-                if (states.isEmpty()) {
+                break;
+            case "STATES":
+                for (String state : args) {
+                    if (!state.matches("[a-zA-Z0-9]+")) {
+                        throw new NonAlphanumericStateException("State must be alphanumeric: " + state);
+                    }
+                    if (fsm.states.contains(state)) {
+                        throw new DuplicateStateWarningException("State already declared: " + state);
+                    }
+                    fsm.states.add(state);
+                }
+                if (args.length == 0 && fsm.states.isEmpty()) {
                     throw new EmptyStateListException("State list is empty");
                 }
-                return states;
-            } catch (EmptyStateListException e) {
-                System.err.println("Warning: " + e.getMessage());
-                return states; // Return empty set for consistency
+                break;
+            case "INITIAL-STATE":
+                if (args.length == 0 || args[0].isEmpty()) {
+                    throw new InvalidInitialStateException("Initial state cannot be empty");
+                }
+                if (!args[0].matches("[a-zA-Z0-9]+")) {
+                    throw new InvalidInitialStateException("Initial state must be alphanumeric: " + args[0]);
+                }
+                if (!fsm.states.contains(args[0])) {
+                    throw new UndeclaredInitialStateWarningException("Initial state not previously declared: " + args[0]);
+                }
+                fsm.initialState = args[0];
+                break;
+            case "FINAL-STATES":
+                for (String state : args) {
+                    if (!state.matches("[a-zA-Z0-9]+")) {
+                        throw new InvalidFinalStateException("Final state must be alphanumeric: " + state);
+                    }
+                    if (!fsm.states.contains(state)) {
+                        throw new UndeclaredFinalStateWarningException("Final state not previously declared: " + state);
+                    }
+                    if (fsm.finalStates.contains(state)) {
+                        throw new DuplicateFinalStateWarningException("Final state already declared: " + state);
+                    }
+                    fsm.finalStates.add(state);
+                }
+                break;
+            case "TRANSITIONS":
+                StringBuilder fullTransitionCommand = new StringBuilder("TRANSITIONS ");
+                for (String arg : args) {
+                    fullTransitionCommand.append(arg).append(" ");
+                }
+                Transition transitionManager = new Transition(fsm.symbols, fsm.states);
+                transitionManager.processTransitionsCommand(fullTransitionCommand.toString().trim());
+
+                fsm.transitions.clear();
+                Map<String, Map<String, String>> transitionTable = transitionManager.getTransitionTable();
+                for (String fromState : transitionTable.keySet()) {
+                    Map<String, String> innerMap = transitionTable.get(fromState);
+                    for (String symbol : innerMap.keySet()) {
+                        String nextState = innerMap.get(symbol);
+                        fsm.transitions.putIfAbsent(symbol, new HashMap<>());
+                        fsm.transitions.get(symbol).put(fromState, nextState);
+                    }
+                }
+                break;
+            case "COMPILE":
+                if (args.length == 0) {
+                    throw new InvalidCompileFilenameException("Missing filename for COMPILE");
+                }
+                compile.handleCompile(args[0]);
+                break;
+            case "LOAD":
+                if (args.length == 0) {
+                    throw new LoadFileFormatException("Missing filename for LOAD");
+                }
+                Load nestedLoader = new Load(fsm);
+                nestedLoader.handleLoad(args[0]);
+                break;
+            case "LOG":
+                fsm.handleLogCommand(line);
+                break;
+            case "EXIT":
+                System.out.println("EXIT command detected in file. Stopping execution.");
+                System.exit(0);
+                break;
+            default:
+                throw new InvalidCommandSyntaxException("Unknown command: " + command);
+        }
+    }
+
+
+    private boolean isValidFilename(String filename) {
+        return filename.matches("[a-zA-Z0-9.-][a-zA-Z0-9.-]*");
+    }
+
+    private boolean isPlainText(String line) {
+        for (char c : line.toCharArray()) {
+            if ((int) c < 32 && c != '\n' && c != '\r' && c != '\t') {
+                return false;
             }
         }
+        return true;
+    }
+}
+class Clear {
+    private FSM fsm;
+    private LogManager logManager;
 
-        public String getInitialState() {
-            return initialState;
+    public Clear(FSM fsm) {
+        this.fsm = fsm;
+        this.logManager = logManager;
+    }
+
+    public void handleClear() {
+        try {
+            fsm.clear();
+            logManager.stopLogging();
+            System.out.println("FSM and logging cleared.");
+        } catch (LogFileWriteException e) {
+            System.err.println("Error stopping logging: " + e.getMessage());
+        } catch (ClearOperationFailureException e) {
+            System.err.println("Error clearing FSM: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected error during clear: " + e.getMessage());
+        }
+    }
+}
+
+
+class LogManager {
+    private BufferedWriter logWriter;
+    private boolean isLogging = false;
+
+    public void startLogging(String filename) throws LogFileCreationException, LogAlreadyActiveException {
+        if (isLogging) {
+            throw new LogAlreadyActiveException();
         }
 
-        public Set<String> getFinalStates() {
-            return finalStates;
+        try {
+            logWriter = new BufferedWriter(new FileWriter(filename, false));
+            isLogging = true;
+            System.out.println("Started logging to: " + filename);
+        } catch (IOException e) {
+            throw new LogFileCreationException("Failed to create or open log file: " + filename);
         }
+    }
 
-        public Map<String, Map<String, String>> getTransitions() {
-            return transitions;
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder sb = new StringBuilder();
-
+    public void stopLogging() throws LogFileWriteException {
+        if (isLogging) {
             try {
+                logWriter.close();
+                isLogging = false;
+                System.out.println("STOPPED LOGGING");
+            } catch (IOException e) {
+                throw new LogFileWriteException("Failed to close log file.");
+            }
+        } else {
+            System.out.println("LOGGING was not enabled");
+        }
+    }
 
-                if (symbols == null) {
-                    throw new IllegalStateException("Symbols set is null");
-                }
-                sb.append("SYMBOLS ");
-                if (symbols.isEmpty()) {
-                    throw new EmptySymbolListException("Symbol list is empty");
-                }
-                for (String symbol : symbols) {
-                    if (symbol == null || !symbol.matches("[a-zA-Z0-9]")) {
-                        throw new NonAlphanumericSymbolException("Invalid symbol: " + symbol);
-                    }
-                    sb.append(symbol).append(" ");
-                }
-                sb.append("\n");
-
-
-                if (states == null) {
-                    throw new IllegalStateException("States set is null");
-                }
-                sb.append("STATES ");
-                if (states.isEmpty()) {
-                    throw new EmptyStateListException("State list is empty");
-                }
-                for (String state : states) {
-                    if (state == null || !state.matches("[a-zA-Z0-9]+")) {
-                        throw new NonAlphanumericStateException("Invalid state: " + state);
-                    }
-                    sb.append(state).append(" ");
-                }
-                sb.append("\n");
-
-
-                sb.append("INITIAL STATE: ");
-                sb.append(initialState != null ? initialState : "undefined");
-                if (initialState != null && !states.contains(initialState)) {
-                    throw new UndeclaredInitialStateWarningException("Initial state not declared: " + initialState);
-                }
-                sb.append("\n");
-
-
-                if (finalStates == null) {
-                    throw new IllegalStateException("Final states set is null");
-                }
-                sb.append("FINAL STATES: ");
-                for (String finalState : finalStates) {
-                    if (finalState == null || !finalState.matches("[a-zA-Z0-9]+")) {
-                        throw new InvalidFinalStateException("Invalid final state: " + finalState);
-                    }
-                    if (!states.contains(finalState)) {
-                        throw new UndeclaredFinalStateWarningException("Final state not declared: " + finalState);
-                    }
-                    sb.append(finalState).append(" ");
-                }
-                sb.append("\n");
-
-
-                if (transitions == null) {
-                    throw new IllegalStateException("Transitions map is null");
-                }
-                sb.append("TRANSITIONS:\n");
-                for (var entry : transitions.entrySet()) {
-                    String symbol = entry.getKey();
-                    if (!symbols.contains(symbol)) {
-                        throw new UndeclaredSymbolInTransitionException("Undeclared symbol in transition: " + symbol);
-                    }
-                    for (var sub : entry.getValue().entrySet()) {
-                        String fromState = sub.getKey();
-                        String toState = sub.getValue();
-                        if (!states.contains(fromState)) {
-                            throw new UndeclaredStateInTransitionException("Undeclared state in transition: " + fromState);
-                        }
-                        if (!states.contains(toState)) {
-                            throw new UndeclaredStateInTransitionException("Undeclared state in transition: " + toState);
-                        }
-                        sb.append(symbol).append(" ").append(fromState).append(" ").append(toState).append("\n");
-                    }
-                }
-
-                return sb.toString();
-            } catch (EmptySymbolListException | EmptyStateListException e) {
-                System.err.println("Warning: " + e.getMessage());
-                return "FSM is empty or partially defined";
-            } catch (NonAlphanumericSymbolException | NonAlphanumericStateException | InvalidFinalStateException e) {
-                System.err.println("Error: " + e.getMessage());
-                return "Invalid FSM configuration";
-            } catch (UndeclaredInitialStateWarningException | UndeclaredFinalStateWarningException e) {
-                System.err.println("Warning: " + e.getMessage());
-                return sb != null ? sb.toString() : "FSM with warnings";
-            } catch (UndeclaredSymbolInTransitionException | UndeclaredStateInTransitionException e) {
-                System.err.println("Error: " + e.getMessage());
-                return "Invalid transition configuration";
-            } catch (IllegalStateException e) {
-                System.err.println("Error: " + e.getMessage());
-                return "FSM is not properly initialized";
-            } catch (Exception e) {
-                System.err.println("Unexpected error generating FSM string: " + e.getMessage());
-                return "Error generating FSM representation";
+    public void logCommand(String command) throws LogFileWriteException {
+        if (isLogging) {
+            try {
+                logWriter.write(command + "\n");
+                logWriter.flush(); // Ensure immediate write
+            } catch (IOException e) {
+                throw new LogFileWriteException("Failed to write command to log file.");
             }
         }
     }
-    class Transition {
-        private Set<String> validSymbols;
-        private Set<String> validStates;
-        public Map<String, Map<String, String>> transitionTable;
 
-        public Transition(Set<String> validSymbols, Set<String> validStates) {
-            this.validSymbols = new HashSet<>();
-            for (String symbol : validSymbols) {
-                this.validSymbols.add(symbol.toUpperCase());
-            }
-            this.validStates = new HashSet<>();
-            for (String state : validStates) {
-                this.validStates.add(state.toUpperCase());
-            }
-            this.transitionTable = new HashMap<>();
-        }
-
-        //Bakılcak
-        public Transition(String symbol, String currentState, String nextState) {
-            this.validSymbols = new HashSet<>();
-            this.validStates = new HashSet<>();
-            this.transitionTable = new HashMap<>();
-            validSymbols.add(symbol.toUpperCase());
-            validStates.add(currentState.toUpperCase());
-            validStates.add(nextState.toUpperCase());
-            transitionTable.putIfAbsent(currentState.toUpperCase(), new HashMap<>());
-            transitionTable.get(currentState.toUpperCase()).put(symbol.toUpperCase(), nextState.toUpperCase());
-        }
-
-        public void processTransitionsCommand(String command) throws UndeclaredSymbolInTransitionException, UndeclaredStateInTransitionException, DuplicateTransitionOverrideException {
-
+    public void handleLogCommand(String command) throws LogFileCreationException, LogAlreadyActiveException {
+        String[] commandParts = command.split("\\s+");
+        if (commandParts.length == 1) {
             try {
-                String[] parts = command.substring("TRANSITIONS".length()).trim().split(",");
+                stopLogging();
+            } catch (LogFileWriteException e) {
+                System.out.println(e.getMessage());
+            }
+        } else if (commandParts.length == 2) {
+            String filename = commandParts[1];
+            startLogging(filename);
+        } else {
+            System.out.println("Error: Invalid LOG command format.");
+        }
+    }
+    public void clear() throws LogFileWriteException {
+        if (isLogging) {
+            stopLogging();
+        }
 
-                for (String part : parts) {
-                    String[] tokens = part.trim().split("\\s+");
-                    if (tokens.length != 3) {
-                        System.out.println("Invalid transition format: " + part.trim());
+        if (logWriter != null) {
+            try {
+                logWriter = new BufferedWriter(new FileWriter(logWriter.toString(), false));
+                logWriter.write("");
+                logWriter.flush();
+            } catch (IOException e) {
+                throw new LogFileWriteException("Failed to clear log file: " + e.getMessage());
+            }
+        }
+    }
+}
+
+
+
+class FSMMAINN{
+    public static void main(String[] args) {
+        try {
+            FSM fsm = new FSM();
+            States states = new States();
+            Transition transitions = new Transition(fsm.getSymbols(), fsm.getStates());
+            SymbolManager symbolManager = new SymbolManager(states, transitions);
+            Print print = new Print(fsm);
+            Clear clear = new Clear(fsm);
+            Load load = new Load(fsm);
+            Compile compile = new Compile(fsm);
+            CommandProcessor processor = new CommandProcessor();
+            String versionNo = "1.0.0";
+
+            if (!isValidVersion(versionNo)) {
+                throw new InvalidVersionException("Invalid version number: " + versionNo);
+            }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String currentDateTime;
+            try {
+                currentDateTime = LocalDateTime.now().format(formatter);
+            } catch (DateTimeParseException | IllegalArgumentException e) {
+                throw new StartupFormatException("Failed to format date and time: " + e.getMessage());
+            }
+            System.out.println("FSM DESIGNER " + versionNo);
+            System.out.println("Current date and time: " + currentDateTime);
+
+            if (args.length > 0) {
+                String filePath = args[0];
+                if (filePath == null || filePath.trim().isEmpty()) {
+                    throw new CommandLineFileNotFoundException("Command-line filename cannot be null or empty");
+                }
+                if (!isValidFilename(filePath)) {
+                    throw new CommandLineFileNotFoundException("Invalid command-line filename format: " + filePath);
+                }
+
+                File file = new File(filePath);
+                try (Scanner fileScanner = new Scanner(file)) {
+                    int lineNumber = 0;
+                    while (fileScanner.hasNextLine()) {
+                        lineNumber++;
+                        String line = fileScanner.nextLine().trim();
+                        if (line.startsWith(";") || line.isEmpty()) {
+                            continue;
+                        }
+                        if (line.startsWith("?")) {
+                            line = line.substring(1).trim();
+                        }
+                        int semicolonIndex = line.indexOf(';');
+                        if (semicolonIndex == -1) {
+                            throw new MissingSemicolonException("Command missing semicolon on line " + lineNumber + ": " + line);
+                        }
+                        line = line.substring(0, semicolonIndex).trim();
+                        if (!isValidCommand(line)) {
+                            throw new InvalidCommandSyntaxException("Invalid command syntax on line " + lineNumber + ": " + line);
+                        }
+                        try {
+                            processCommand(line, print, load, clear, compile, processor, fsm, states, transitions, symbolManager);
+                        } catch (Exception e) {
+                            System.err.println("Error on line " + lineNumber + ": " + e.getMessage());
+                        }
+                    }
+                } catch (FileNotFoundException e) {
+                    throw new CommandLineFileNotFoundException("File not found: " + filePath);
+                } catch (SecurityException e) {
+                    throw new CommandLineFileAccessException("Cannot access file: " + filePath + " - " + e.getMessage());
+                }
+                System.exit(0);
+            }
+
+            try (Scanner scanner = new Scanner(System.in)) {
+                while (true) {
+                    System.out.print("? ");
+                    String command = scanner.nextLine().trim();
+                    if (command.equalsIgnoreCase("EXIT;")) {
+                        System.out.println("TERMINATED BY USER");
+                        System.exit(0);
+                    }
+                    if (command.startsWith(";") || command.isEmpty()) {
                         continue;
                     }
-
-                    String symbol = tokens[0].toUpperCase();
-                    String currentState = tokens[1].toUpperCase();
-                    String nextState = tokens[2].toUpperCase();
-
-                    if (!validSymbols.contains(symbol)) {
-                        throw new UndeclaredSymbolInTransitionException("Error: invalid symbol $" + symbol + "$");
+                    if (command.startsWith("?")) {
+                        command = command.substring(1).trim();
                     }
-                    if (!validStates.contains(currentState)) {
-                        throw new UndeclaredStateInTransitionException("Error: invalid state $" + currentState + "$");
+                    int semicolonIndex = command.indexOf(';');
+                    if (semicolonIndex == -1) {
+                        throw new MissingSemicolonException("Command missing semicolon: " + command);
                     }
-                    if (!validStates.contains(nextState)) {
-                        throw new UndeclaredStateInTransitionException("Error: invalid state $" + nextState + "$");
+                    command = command.substring(0, semicolonIndex).trim();
+                    if (!isValidCommand(command)) {
+                        throw new InvalidCommandSyntaxException("Invalid command syntax: " + command);
                     }
-                    if (transitionTable.containsKey(currentState) && transitionTable.get(currentState).containsKey(symbol)) {
-                        throw new DuplicateTransitionOverrideException("Warning: transition already exists for <" + symbol + ", " + currentState + ">");
-                    }
-
-                    transitionTable.putIfAbsent(currentState, new HashMap<>());
-                    transitionTable.get(currentState).put(symbol, nextState);
-                }
-            } catch (UndeclaredSymbolInTransitionException | UndeclaredStateInTransitionException | DuplicateTransitionOverrideException e) {
-                throw e;
-            }
-        }
-
-        public String getTransition(String currentState, String symbol) {
-            Map<String, String> row = transitionTable.get(currentState.toUpperCase());
-            if (row != null) {
-                return row.get(symbol.toUpperCase());
-            }
-            return null;
-        }
-        public void printTransitions() {
-            StringBuilder output = new StringBuilder();
-            boolean first = true;
-            for (String state : transitionTable.keySet()) {
-                for (Map.Entry<String, String> entry : transitionTable.get(state).entrySet()) {
-                    if (!first) {
-                        output.append(", ");
-                    }
-                    output.append(entry.getKey()).append(" ").append(state).append(" ").append(entry.getValue());
-                    first = false;
+                    processCommand(command, print, load, clear, compile, processor, fsm, states, transitions, symbolManager);
                 }
             }
-            System.out.println(output.toString());
-        }
-
-        public void clear() {
-            transitionTable.clear();
-            validSymbols.clear();
-            validStates.clear();
-        }
-        public Map<String, Map<String, String>> getTransitionTable() {
-            return transitionTable;
-        }
-
-        public String getNextState() {
-            throw new UnsupportedOperationException("Unimplemented method 'getNextState'");
+        } catch (InvalidVersionException e) {
+            System.err.println("Startup Error: " + e.getMessage());
+            System.exit(1);
+        } catch (StartupFormatException e) {
+            System.err.println("Startup Error: " + e.getMessage());
+            System.exit(1);
+        } catch (CommandLineFileNotFoundException e) {
+            System.err.println("Error: " + e.getMessage());
+            System.exit(1);
+        } catch (CommandLineFileAccessException e) {
+            System.err.println("Error: " + e.getMessage());
+            System.exit(1);
+        } catch (MissingSemicolonException e) {
+            System.err.println("Error: " + e.getMessage());
+        } catch (InvalidCommandSyntaxException e) {
+            System.err.println("Error: " + e.getMessage());
+        } catch (LoadCommandExecution e) {
+            System.err.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            System.exit(1);
         }
     }
-
-    class FSMExecutor {
-        private States states;
-        private Transition transitions;
-        private Set<String> symbols;
-
-        public FSMExecutor(States states, Transition transitions, Set<String> symbols) {
-            this.states = states;
-            this.transitions = transitions;
-            this.symbols = symbols;
+    private static boolean isValidVersion(String version) {
+        if (version == null || version.trim().isEmpty()) {
+            return false;
         }
-
-        public void execute(String input) {
-            input = input.trim().toUpperCase();
-            if (input.isEmpty()) {
-                System.out.println("Error: Input string is empty.");
-                return;
-            }
-
-            String currentState = states.getInitialState();
-            if (currentState == null) {
-                System.out.println("Error: Initial state is not set.");
-                return;
-            }
-
-            List<String> stateSequence = new ArrayList<>();
-            stateSequence.add(currentState);
-
-            for (char ch : input.toCharArray()) {
-                String symbol = String.valueOf(ch).toUpperCase();
-
-                if (!symbols.contains(symbol)) {
-                    System.out.println("Error: Invalid symbol " + symbol);
-                    return;
-                }
-
-                String nextState = transitions.getTransition(currentState, symbol);
-                if (nextState == null) {
-                    System.out.println(String.join(" ", stateSequence) + " NO");
-                    return;
-                }
-
-                currentState = nextState;
-                stateSequence.add(currentState);
-            }
-
-            String result = states.isFinalState(currentState) ? "YES" : "NO";
-            System.out.println(String.join(" ", stateSequence) + " " + result);
-        }
+        return version.matches("\\d+\\.\\d+\\.\\d+");
     }
 
-
-    class Load {
-        private FSM fsm;
-        private Print print;
-        private Compile compile;
-
-        public Load(FSM fsm) {
-            this.fsm = fsm;
-            this.print = new Print(fsm);
-            this.compile = new Compile(fsm);
+    private static boolean isValidFilename(String filename) {
+        if (filename == null || filename.trim().isEmpty()) {
+            return false;
         }
-
-        public void handleLoad(String filename) {
-            try {
-
-                if (filename == null || filename.trim().isEmpty()) {
-                    throw new LoadFileFormatException("Filename cannot be null or empty");
-                }
-                if (!isValidFilename(filename)) {
-                    throw new LoadFileFormatException("Invalid filename format: " + filename);
-                }
-
-                if (filename.endsWith(".fs")) {
-
-                    try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
-                        FSM loadedFSM = (FSM) ois.readObject();
-
-                        if (loadedFSM == null) {
-                            throw new LoadFileFormatException("Invalid FSM data in binary file: " + filename);
-                        }
-
-                        fsm.symbols = loadedFSM.symbols;
-                        fsm.states = loadedFSM.states;
-                        fsm.initialState = loadedFSM.initialState;
-                        fsm.finalStates = loadedFSM.finalStates;
-                        fsm.transitions = loadedFSM.transitions;
-                        System.out.println("FSM loaded from binary file: " + filename);
-                    } catch (FileNotFoundException e) {
-                        throw new LoadFileNotFoundException("File not found: " + filename);
-                    } catch (IOException | ClassNotFoundException | ClassCastException e) {
-                        throw new LoadFileFormatException("Invalid or corrupted binary file: " + filename + " - " + e.getMessage());
-                    }
-                } else {
-
-                    try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-                        String firstLine = reader.readLine();
-                        if (firstLine == null) {
-                            throw new LoadFileFormatException("File is empty: " + filename);
-                        }
-
-
-                        if (!isPlainText(firstLine)) {
-                            throw new LoadFileFormatException("File is not plain text: " + filename);
-                        }
-
-                        int lineNumber = 1;
-                        String line = firstLine.trim();
-                        do {
-
-                            if (line.startsWith("?")) {
-                                line = line.substring(1).trim();
-                            }
-
-                            int semicolon = line.indexOf(';');
-                            if (semicolon != -1) {
-                                line = line.substring(0, semicolon).trim();
-                            }
-
-                            if (!line.isEmpty()) {
-                                try {
-                                    fsm.logCommand(line); // Log the command
-                                    executeLine(line, fsm);
-                                } catch (Exception e) {
-
-                                    throw new LoadCommandExecution("Error on line " + lineNumber + ": " + e.getMessage());
-                                }
-                            }
-
-                            lineNumber++;
-                            line = reader.readLine();
-                            if (line != null) {
-                                line = line.trim();
-                            }
-                        } while (line != null);
-
-                        System.out.println("Text file processed: " + filename);
-                    } catch (FileNotFoundException e) {
-                        throw new LoadFileNotFoundException("File not found: " + filename);
-                    } catch (IOException e) {
-                        throw new LoadFileFormatException("Error reading text file: " + filename + " - " + e.getMessage());
-                    }
-                }
-            } catch (LoadFileNotFoundException e) {
-                System.err.println("Error: " + e.getMessage());
-            } catch (LoadFileFormatException e) {
-                System.err.println("Error: " + e.getMessage());
-            } catch (LoadCommandExecution e) {
-                System.err.println("Error: " + e.getMessage());
-            } catch (Exception e) {
-
-                System.err.println("Unexpected error while loading file: " + e.getMessage());
-            }
-        }
-
-        private void executeLine(String line, FSM fsm) throws Exception {
-            int firstSpace = line.indexOf(" ");
-            String command = (firstSpace == -1) ? line : line.substring(0, firstSpace);
-            String[] args = (firstSpace == -1) ? new String[0] : line.substring(firstSpace + 1).split("\\s+");
-
-            switch (command.toUpperCase()) {
-                case "CLEAR":
-                    fsm.clear();
-                    break;
-                case "PRINT":
-                    print.handlePrint(args);
-                    break;
-                case "SYMBOLS":
-                    for (String symbol : args) {
-                        if (!symbol.matches("[a-zA-Z0-9]")) {
-                            throw new NonAlphanumericSymbolException("Symbol must be alphanumeric: " + symbol);
-                        }
-                        if (fsm.symbols.contains(symbol)) {
-                            throw new DuplicateSymbolWarningException("Symbol already declared: " + symbol);
-                        }
-                        fsm.symbols.add(symbol);
-                    }
-                    if (args.length == 0 && fsm.symbols.isEmpty()) {
-                        throw new EmptySymbolListException("Symbol list is empty");
-                    }
-                    break;
-                case "STATES":
-                    for (String state : args) {
-                        if (!state.matches("[a-zA-Z0-9]+")) {
-                            throw new NonAlphanumericStateException("State must be alphanumeric: " + state);
-                        }
-                        if (fsm.states.contains(state)) {
-                            throw new DuplicateStateWarningException("State already declared: " + state);
-                        }
-                        fsm.states.add(state);
-                    }
-                    if (args.length == 0 && fsm.states.isEmpty()) {
-                        throw new EmptyStateListException("State list is empty");
-                    }
-                    break;
-                case "INITIAL-STATE":
-                    if (args.length == 0 || args[0].isEmpty()) {
-                        throw new InvalidInitialStateException("Initial state cannot be empty");
-                    }
-                    if (!args[0].matches("[a-zA-Z0-9]+")) {
-                        throw new InvalidInitialStateException("Initial state must be alphanumeric: " + args[0]);
-                    }
-                    if (!fsm.states.contains(args[0])) {
-                        throw new UndeclaredInitialStateWarningException("Initial state not previously declared: " + args[0]);
-                    }
-                    fsm.initialState = args[0];
-                    break;
-                case "FINAL-STATES":
-                    for (String state : args) {
-                        if (!state.matches("[a-zA-Z0-9]+")) {
-                            throw new InvalidFinalStateException("Final state must be alphanumeric: " + state);
-                        }
-                        if (!fsm.states.contains(state)) {
-                            throw new UndeclaredFinalStateWarningException("Final state not previously declared: " + state);
-                        }
-                        if (fsm.finalStates.contains(state)) {
-                            throw new DuplicateFinalStateWarningException("Final state already declared: " + state);
-                        }
-                        fsm.finalStates.add(state);
-                    }
-                    break;
-                case "TRANSITIONS":
-                    StringBuilder fullTransitionCommand = new StringBuilder("TRANSITIONS ");
-                    for (String arg : args) {
-                        fullTransitionCommand.append(arg).append(" ");
-                    }
-                    Transition transitionManager = new Transition(fsm.symbols, fsm.states);
-                    transitionManager.processTransitionsCommand(fullTransitionCommand.toString().trim());
-
-                    fsm.transitions.clear();
-                    Map<String, Map<String, String>> transitionTable = transitionManager.getTransitionTable();
-                    for (String fromState : transitionTable.keySet()) {
-                        Map<String, String> innerMap = transitionTable.get(fromState);
-                        for (String symbol : innerMap.keySet()) {
-                            String nextState = innerMap.get(symbol);
-                            fsm.transitions.putIfAbsent(symbol, new HashMap<>());
-                            fsm.transitions.get(symbol).put(fromState, nextState);
-                        }
-                    }
-                    break;
-                case "COMPILE":
-                    if (args.length == 0) {
-                        throw new InvalidCompileFilenameException("Missing filename for COMPILE");
-                    }
-                    compile.handleCompile(args[0]);
-                    break;
-                case "LOAD":
-                    if (args.length == 0) {
-                        throw new LoadFileFormatException("Missing filename for LOAD");
-                    }
-                    Load nestedLoader = new Load(fsm);
-                    nestedLoader.handleLoad(args[0]);
-                    break;
-                case "LOG":
-                    fsm.handleLogCommand(line);
-                    break;
-                case "EXIT":
-                    System.out.println("EXIT command detected in file. Stopping execution.");
-                    System.exit(0);
-                    break;
-                default:
-                    throw new InvalidCommandSyntaxException("Unknown command: " + command);
-            }
-        }
-
-
-        private boolean isValidFilename(String filename) {
-            return filename.matches("[a-zA-Z0-9.-][a-zA-Z0-9.-]*");
-        }
-
-        private boolean isPlainText(String line) {
-            for (char c : line.toCharArray()) {
-                if ((int) c < 32 && c != '\n' && c != '\r' && c != '\t') {
-                    return false;
-                }
-            }
-            return true;
-        }
-    }
-    class Clear {
-         private FSM fsm;
-         private LogManager logManager;
-
-         public Clear(FSM fsm) {
-             this.fsm = fsm;
-             this.logManager = fsm.logManager;
-         }
-
-         public void handleClear() {
-             try {
-                 fsm.clear();
-                 logManager.stopLogging();
-                 System.out.println("FSM and logging cleared.");
-             } catch (LogFileWriteException e) {
-                 System.err.println("Error stopping logging: " + e.getMessage());
-             } catch (ClearOperationFailureException e) {
-                 System.err.println("Error clearing FSM: " + e.getMessage());
-             } catch (Exception e) {
-                 System.err.println("Unexpected error during clear: " + e.getMessage());
-             }
-         }
-     }
-
-
-    class LogManager {
-        private BufferedWriter logWriter;
-        private boolean isLogging = false;
-
-        public void startLogging(String filename) throws LogFileCreationException, LogAlreadyActiveException {
-            if (isLogging) {
-                throw new LogAlreadyActiveException();
-            }
-
-            try {
-                logWriter = new BufferedWriter(new FileWriter(filename, false));
-                isLogging = true;
-                System.out.println("Started logging to: " + filename);
-            } catch (IOException e) {
-                throw new LogFileCreationException("Failed to create or open log file: " + filename);
-            }
-        }
-
-        public void stopLogging() throws LogFileWriteException {
-            if (isLogging) {
-                try {
-                    logWriter.close();
-                    isLogging = false;
-                    System.out.println("STOPPED LOGGING");
-                } catch (IOException e) {
-                    throw new LogFileWriteException("Failed to close log file.");
-                }
-            } else {
-                System.out.println("LOGGING was not enabled");
-            }
-        }
-
-        public void logCommand(String command) throws LogFileWriteException {
-            if (isLogging) {
-                try {
-                    logWriter.write(command + "\n");
-                    logWriter.flush(); // Ensure immediate write
-                } catch (IOException e) {
-                    throw new LogFileWriteException("Failed to write command to log file.");
-                }
-            }
-        }
-
-        public void handleLogCommand(String command) throws LogFileCreationException, LogAlreadyActiveException {
-            String[] commandParts = command.split("\\s+");
-            if (commandParts.length == 1) {
-                try {
-                    stopLogging();
-                } catch (LogFileWriteException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else if (commandParts.length == 2) {
-                String filename = commandParts[1];
-                startLogging(filename);
-            } else {
-                System.out.println("Error: Invalid LOG command format.");
-            }
-        }
-        public void clear() throws LogFileWriteException {
-            if (isLogging) {
-                stopLogging();
-            }
-
-            if (logWriter != null) {
-                try {
-                    logWriter = new BufferedWriter(new FileWriter(logWriter.toString(), false));
-                    logWriter.write("");
-                    logWriter.flush();
-                } catch (IOException e) {
-                    throw new LogFileWriteException("Failed to clear log file: " + e.getMessage());
-                }
-            }
-        }
+        return filename.matches("[a-zA-Z0-9.-][a-zA-Z0-9.-]*");
     }
 
-    private static void processCommand(String command, Print print, Load load, Clear clear, Compile compile, CommandProcessor processor) throws Exception {
+    private static boolean isValidCommand(String command) {
+        if (command == null || command.trim().isEmpty()) {
+            return false;
+        }
+
+        // Harf, sayı, boşluk, virgül, nokta, tire ve dosya adlarında kullanılan diğer karakterlere izin ver
+        return command.matches("[a-zA-Z0-9\\s,._:-]*");
+    }
+
+    private static void processCommand(String command, Print print, Load load, Clear clear, Compile compile, CommandProcessor processor, FSM fsm, States states, Transition transitions, SymbolManager symbolManager) throws Exception {
         String[] tokens = command.split("\\s+");
         String mainCommand = tokens[0].toUpperCase();
         String[] argsRest = java.util.Arrays.copyOfRange(tokens, 1, tokens.length);
 
-        switch (mainCommand) {
+        fsm.logCommand(command);
+
+       switch (mainCommand) {
             case "PRINT":
                 print.handlePrint(argsRest);
                 break;
@@ -1417,124 +1602,49 @@ class FSM implements Serializable {
                 }
                 compile.handleCompile(argsRest[0]);
                 break;
+           case "EXECUTE":
+               if (argsRest.length == 0) {
+                   throw new InvalidCommandSyntaxException("Missing input string for EXECUTE command");
+               }
+
+               String inputStr = argsRest[0];
+               String filename = null;
+
+               // "TO <filename>" varsa onu al
+               for (int i = 1; i < argsRest.length - 1; i++) {
+                   if (argsRest[i].equalsIgnoreCase("TO")) {
+                       filename = argsRest[i + 1];
+                       break;
+                   }
+               }
+
+               FSMExecutor executor = new FSMExecutor(states, transitions, symbolManager.getSymbols());
+
+               if (filename != null) {
+                   executor.executeToFile(inputStr, filename);
+               } else {
+                   executor.execute(inputStr); // sadece ekrana yaz
+               }
+               break;
+
+           case "SYMBOLS":
+                symbolManager.handleSymbolsCommand(String.join(" ", argsRest));
+                break;
+            case "STATES":
+               // states.processCommand(command);
+                break;
+            case "INITIAL-STATE":
+            case "FINAL-STATES":
+                states.processCommand(command);
+                break;
+            case "TRANSITIONS":
+                transitions.processTransitionsCommand(command);
+                break;
+            case "LOG":
+                fsm.handleLogCommand(command);
+                break;
             default:
                 processor.processCommand(command);
         }
     }
-    private static boolean isValidVersion(String version) {
-        return version != null && version.matches("\\d+\\.\\d+\\.\\d+");
-    }
-    private static boolean isValidFilename(String filename) {
-        return filename.matches("[a-zA-Z0-9.-][a-zA-Z0-9.-]*");
-    }
-    private static boolean isValidCommand(String command) {
-        return command != null && !command.isEmpty() && command.matches("[a-zA-Z0-9\\s-]*");
-    }
-    public class FSMMAINN{
-        public static void main(String[] args) {
-            try {
-                FSM fsm = new FSM();
-                Print print = new Print(fsm);
-                Clear clear = new Clear(fsm);
-                Load load = new Load(fsm);
-                Compile compile = new Compile(fsm);
-                CommandProcessor processor = new CommandProcessor();
-                String versionNo = "1.0.0";
-                if (!isValidVersion(versionNo)) {
-                    throw new InvalidVersionException("Invalid version number: " + versionNo);
-                }
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                String currentDateTime;
-                try {
-                    currentDateTime = LocalDateTime.now().format(formatter);
-                } catch (DateTimeParseException | IllegalArgumentException e) {
-                    throw new StartupFormatException("Failed to format date and time: " + e.getMessage());
-                }
-                System.out.println("FSM DESIGNER " + versionNo);
-                System.out.println("Current date and time: " + currentDateTime);
-                if (args.length > 0) {
-                    String filePath = args[0];
-                    if (filePath == null || filePath.trim().isEmpty()) {
-                        throw new CommandLineFileNotFoundException("Command-line filename cannot be null or empty");
-                    }
-                    if (!isValidFilename(filePath)) {
-                        throw new CommandLineFileNotFoundException("Invalid command-line filename format: " + filePath);
-                    }
-
-                    File file = new File(filePath);
-                    try (Scanner fileScanner = new Scanner(file)) {
-                        int lineNumber = 0;
-                        while (fileScanner.hasNextLine()) {
-                            lineNumber++;
-                            String line = fileScanner.nextLine().trim();
-                            if (line.startsWith(";") || line.isEmpty()) {
-                                continue;
-                            }
-                            if (line.startsWith("?")) {
-                                line = line.substring(1).trim();
-                            }
-                            int semicolonIndex = line.indexOf(';');
-                            if (semicolonIndex == -1) {
-                                throw new MissingSemicolonException("Command missing semicolon on line " + lineNumber + ": " + line);
-                            }
-                            line = line.substring(0, semicolonIndex).trim();
-                            if (!isValidCommand(line)) {
-                                throw new InvalidCommandSyntaxException("Invalid command syntax on line " + lineNumber + ": " + line);
-                            }
-                            try {
-                                processCommand(line, print, load, clear, compile, processor);
-                            } catch (Exception e) {
-                                throw new LoadCommandExecution("Error on line " + lineNumber + ": " + e.getMessage());
-                            }
-                        }
-                    } catch (FileNotFoundException e) {
-                        throw new CommandLineFileNotFoundException("File not found: " + filePath);
-                    } catch (SecurityException e) {
-                        throw new CommandLineFileAccessException("Cannot access file: " + filePath + " - " + e.getMessage());
-                    }
-                }
-                try (Scanner scanner = new Scanner(System.in)) {
-                    while (true) {
-                        System.out.print("? ");
-                        String command = scanner.nextLine().trim();
-                        if (command.startsWith(";") || command.isEmpty()) {
-                            continue;
-                        }
-                        if (command.startsWith("?")) {
-                            command = command.substring(1).trim();
-                        }
-                        int semicolonIndex = command.indexOf(';');
-                        if (semicolonIndex == -1) {
-                            throw new MissingSemicolonException("Command missing semicolon: " + command);
-                        }
-                        command = command.substring(0, semicolonIndex).trim();
-                        if (!isValidCommand(command)) {
-                            throw new InvalidCommandSyntaxException("Invalid command syntax: " + command);
-                        }
-                        processCommand(command, print, load, clear, compile, processor);
-                    }
-                }
-            } catch (InvalidVersionException e) {
-                System.err.println("Startup Error: " + e.getMessage());
-                System.exit(1);
-            } catch (StartupFormatException e) {
-                System.err.println("Startup Error: " + e.getMessage());
-                System.exit(1);
-            } catch (CommandLineFileNotFoundException e) {
-                System.err.println("Error: " + e.getMessage());
-                System.exit(1);
-            } catch (CommandLineFileAccessException e) {
-                System.err.println("Error: " + e.getMessage());
-                System.exit(1);
-            } catch (MissingSemicolonException e) {
-                System.err.println("Error: " + e.getMessage());
-            } catch (InvalidCommandSyntaxException e) {
-                System.err.println("Error: " + e.getMessage());
-            } catch (LoadCommandExecution e) {
-                System.err.println("Error: " + e.getMessage());
-            } catch (Exception e) {
-                System.err.println("Unexpected error: " + e.getMessage());
-                System.exit(1);
-            }
-        }
-    }
+}
